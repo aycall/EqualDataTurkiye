@@ -1,0 +1,1026 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="EqualDataTürkiye: WEF 2025 Global Gender Gap views on education, health, and political empowerment for Türkiye, with maps and TÜİK-style national context."
+    />
+    <meta property="og:title" content="EqualDataTürkiye | Gender Data Portal" />
+    <meta
+      property="og:description"
+      content="Explore education, health, and political empowerment data: choropleth maps, national statistics, and labor market context."
+    />
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="en_US" />
+    <meta property="og:image" content="./assets/brand-logo.png" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <title>Gender Data Portal - Landing</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,600;0,700;1,600;1,700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="./style.css" />
+  </head>
+  <body>
+    <header class="top-header">
+      <div class="container top-header-inner">
+        <div class="brand">
+          <span class="brand-logo-badge" aria-hidden="true">
+            <img
+              class="brand-inline-logo"
+              src="./assets/brand-logo.png"
+              alt=""
+            />
+          </span>
+          <div class="brand-text">
+            <span class="brand-org">EqualDataTürkiye</span>
+            <span class="brand-divider">|</span>
+            <span class="brand-title">Gender Data Portal</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <nav class="main-nav">
+      <div class="container">
+        <ul>
+          <li><a href="./index.html" class="active">Home</a></li>
+          <li><a href="./about.html">About</a></li>
+        </ul>
+      </div>
+    </nav>
+
+    <main class="hero">
+      <div class="container hero-content">
+        <p class="hero-pretitle">EqualDataTürkiye</p>
+        <h2 class="hero-title">Shaping an Equal Future</h2>
+        <p class="hero-subtitle">
+          Data-driven insights into the 2025 Global Gender Gap: Education, Survival,
+          and Power.
+        </p>
+
+        <div class="hero-help-wrap">
+          <a
+            href="./about.html#contact-us"
+            class="hero-subaction hero-help-link"
+          >
+            Feedback
+          </a>
+        </div>
+      </div>
+    </main>
+
+    <section class="explore-section">
+      <div class="container">
+        <div class="explore-header">
+          <h2>Explore the Data</h2>
+        </div>
+
+        <div class="explore-grid">
+          <article class="explore-card explore-card--edu">
+            <div class="card-visual">
+              <img
+                class="edu-visual-logo"
+                src="./assets/edu-overlay-custom.png"
+                alt=""
+              />
+            </div>
+            <button
+              class="card-toggle"
+              type="button"
+              data-open-edu="true"
+              aria-expanded="false"
+            >
+              <span>Access to education</span>
+              <span class="chev" aria-hidden="true"></span>
+            </button>
+            <p class="card-desc">
+              Discover Türkiye’s greatest achievement on its journey towards
+              equality. Click to see how this powerful picture in the classroom
+              has shaped social transformation and to uncover the real gains
+              behind the figures.
+            </p>
+          </article>
+
+          <article class="explore-card explore-card--health">
+            <div class="card-visual">
+              <img
+                class="health-visual-logo"
+                src="./assets/health-visual.png"
+                alt="Health and survival illustration"
+              />
+            </div>
+            <button
+              class="card-toggle"
+              type="button"
+              data-open-health="true"
+              aria-expanded="false"
+            >
+              <span>Health and survival</span>
+              <span class="chev" aria-hidden="true"></span>
+            </button>
+            <p class="card-desc">
+              Analyse Türkiye's position relative to global standards in terms
+              of women's life expectancy, access to healthcare and general
+              well-being indicators. Examine in depth the gender-specific
+              implications of data on life expectancy and quality of health.
+            </p>
+          </article>
+
+          <article class="explore-card explore-card--pol">
+            <div class="card-visual">
+              <img
+                class="pol-visual-logo"
+                src="./assets/pol-overlay.png"
+                alt=""
+              />
+            </div>
+            <button
+              class="card-toggle"
+              type="button"
+              data-open-pol="true"
+              aria-expanded="false"
+            >
+              <span>Political empowerment</span>
+              <span class="chev" aria-hidden="true"></span>
+            </button>
+            <p class="card-desc">
+              Discover the gender gap in political representation and
+              decision-making mechanisms. Examine Türkiye's position in the
+              global index and the data on under-representation in government.
+            </p>
+          </article>
+        </div>
+
+        <div id="edu-detail-anchor" class="detail-anchor" aria-live="polite"></div>
+        <div id="health-detail-anchor" class="detail-anchor" aria-live="polite"></div>
+        <div id="pol-detail-anchor" class="detail-anchor" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <template id="edu-tuik-infographic-tpl">
+      <section
+        id="detail-edu-tuik"
+        class="edu-tuik"
+        aria-labelledby="edu-tuik-heading"
+        data-tuik-infographic
+      >
+        <div class="edu-tuik-inner">
+          <h2 id="edu-tuik-heading" class="edu-tuik-title">
+            Education and Gender Equality in Türkiye
+          </h2>
+          <p class="edu-tuik-dek">
+            Key figures from national statistics (TÜİK 2025, Women in Statistics).
+          </p>
+
+          <div class="edu-tuik-highlight">
+            <p class="edu-tuik-highlight-label">
+              Population (25+) with at least one completed education level
+            </p>
+            <div class="edu-tuik-highlight-stats">
+              <div class="edu-tuik-stat edu-tuik-stat--women">
+                <span class="edu-tuik-stat-value">88.3%</span>
+                <span class="edu-tuik-stat-sex">Women</span>
+              </div>
+              <div class="edu-tuik-stat edu-tuik-stat--men">
+                <span class="edu-tuik-stat-value">97.0%</span>
+                <span class="edu-tuik-stat-sex">Men</span>
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-tuik-block">
+            <h3 class="edu-tuik-block-title">Education levels (25+)</h3>
+            <p class="edu-tuik-block-desc">
+              Share of population by highest completed level (women vs men).
+            </p>
+            <div class="edu-tuik-legend" aria-hidden="true">
+              <span class="edu-tuik-legend-i edu-tuik-legend-w">Women</span>
+              <span class="edu-tuik-legend-i edu-tuik-legend-m">Men</span>
+            </div>
+            <div
+              class="tuik-chart tuik-chart--levels"
+              role="group"
+              aria-label="Education levels comparison"
+            >
+              <div class="tuik-level" data-w="23.6" data-m="26.8">
+                <span class="tuik-level-label">Higher education</span>
+                <div class="tuik-level-bars">
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--w" style="width: 23.6%"></div>
+                  </div>
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--m" style="width: 26.8%"></div>
+                  </div>
+                </div>
+                <div class="tuik-level-vals"><span>23.6%</span><span>26.8%</span></div>
+              </div>
+              <div class="tuik-level" data-w="19.6" data-m="28.2">
+                <span class="tuik-level-label">High school</span>
+                <div class="tuik-level-bars">
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--w" style="width: 19.6%"></div>
+                  </div>
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--m" style="width: 28.2%"></div>
+                  </div>
+                </div>
+                <div class="tuik-level-vals"><span>19.6%</span><span>28.2%</span></div>
+              </div>
+              <div class="tuik-level" data-w="25.6" data-m="16.7">
+                <span class="tuik-level-label">Primary school</span>
+                <div class="tuik-level-bars">
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--w" style="width: 25.6%"></div>
+                  </div>
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--m" style="width: 16.7%"></div>
+                  </div>
+                </div>
+                <div class="tuik-level-vals"><span>25.6%</span><span>16.7%</span></div>
+              </div>
+              <div class="tuik-level" data-w="5.1" data-m="0.8">
+                <span class="tuik-level-label">Illiterate</span>
+                <div class="tuik-level-bars">
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--w" style="width: 5.1%"></div>
+                  </div>
+                  <div class="tuik-level-track">
+                    <div class="tuik-level-fill tuik-level-fill--m" style="width: 0.8%"></div>
+                  </div>
+                </div>
+                <div class="tuik-level-vals"><span>5.1%</span><span>0.8%</span></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-tuik-block">
+            <h3 class="edu-tuik-block-title">School enrollment</h3>
+            <p class="edu-tuik-block-desc">
+              Net enrollment rates by level, from official education statistics.
+            </p>
+            <div class="edu-tuik-legend" aria-hidden="true">
+              <span class="edu-tuik-legend-i edu-tuik-legend-w">Women</span>
+              <span class="edu-tuik-legend-i edu-tuik-legend-m">Men</span>
+            </div>
+            <div
+              class="tuik-chart tuik-chart--enrol"
+              role="group"
+              aria-label="School enrollment comparison"
+            >
+              <div class="tuik-enrol tuik-enrol--equal">
+                <span class="tuik-enrol-label">Preschool</span>
+                <div class="tuik-enrol-equal">
+                  <span class="tuik-enrol-equal-bar" style="width: 49%"></span>
+                  <span class="tuik-enrol-equal-text">Equal at 49%</span>
+                </div>
+              </div>
+              <div class="tuik-enrol">
+                <span class="tuik-enrol-label">Primary</span>
+                <div class="tuik-enrol-pair">
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--w" style="width: 95.7%"></div>
+                    </div>
+                    <span>95.7%</span>
+                  </div>
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--m" style="width: 95.2%"></div>
+                    </div>
+                    <span>95.2%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tuik-enrol">
+                <span class="tuik-enrol-label">Secondary</span>
+                <div class="tuik-enrol-pair">
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--w" style="width: 89.3%"></div>
+                    </div>
+                    <span>89.3%</span>
+                  </div>
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--m" style="width: 88.9%"></div>
+                    </div>
+                    <span>88.9%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tuik-enrol">
+                <span class="tuik-enrol-label">High school</span>
+                <div class="tuik-enrol-pair">
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--w" style="width: 83.3%"></div>
+                    </div>
+                    <span>83.3%</span>
+                  </div>
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--m" style="width: 82.5%"></div>
+                    </div>
+                    <span>82.5%</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tuik-enrol">
+                <span class="tuik-enrol-label">University</span>
+                <div class="tuik-enrol-pair">
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--w" style="width: 53%"></div>
+                    </div>
+                    <span>53%</span>
+                  </div>
+                  <div class="tuik-enrol-row">
+                    <div class="tuik-enrol-track">
+                      <div class="tuik-enrol-fill tuik-enrol-fill--m" style="width: 39.9%"></div>
+                    </div>
+                    <span>39.9%</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="edu-tuik-callout">
+              Women have higher university enrollment rates.
+            </p>
+          </div>
+
+          <div class="edu-tuik-block">
+            <h3 class="edu-tuik-block-title">Mean years of education (25+)</h3>
+            <p class="edu-tuik-block-desc">National trend: 2011 vs 2024.</p>
+            <div
+              class="tuik-years"
+              role="img"
+              aria-label="Women 6.4 years in 2011 rising to 8.8 in 2024; men 8.3 to 10.2"
+            >
+              <div class="tuik-years-axis">
+                <span>0</span><span>4</span><span>8</span><span>12</span>
+              </div>
+              <div class="tuik-years-row">
+                <span class="tuik-years-sex">Women</span>
+                <div class="tuik-years-bars">
+                  <div class="tuik-years-item">
+                    <span class="tuik-years-year">2011</span>
+                    <div class="tuik-years-track">
+                      <div class="tuik-years-fill tuik-years-fill--w" style="width: 53.33%"></div>
+                    </div>
+                    <span class="tuik-years-num">6.4</span>
+                  </div>
+                  <div class="tuik-years-item">
+                    <span class="tuik-years-year">2024</span>
+                    <div class="tuik-years-track">
+                      <div class="tuik-years-fill tuik-years-fill--w" style="width: 73.33%"></div>
+                    </div>
+                    <span class="tuik-years-num">8.8</span>
+                  </div>
+                </div>
+              </div>
+              <div class="tuik-years-row">
+                <span class="tuik-years-sex">Men</span>
+                <div class="tuik-years-bars">
+                  <div class="tuik-years-item">
+                    <span class="tuik-years-year">2011</span>
+                    <div class="tuik-years-track">
+                      <div class="tuik-years-fill tuik-years-fill--m" style="width: 69.17%"></div>
+                    </div>
+                    <span class="tuik-years-num">8.3</span>
+                  </div>
+                  <div class="tuik-years-item">
+                    <span class="tuik-years-year">2024</span>
+                    <div class="tuik-years-track">
+                      <div class="tuik-years-fill tuik-years-fill--m" style="width: 85%"></div>
+                    </div>
+                    <span class="tuik-years-num">10.2</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <p class="tuik-years-note">Scale from 0 to 12 years.</p>
+          </div>
+
+          <div class="edu-tuik-block edu-tuik-block--split">
+            <div class="edu-tuik-split-main">
+              <h3 class="edu-tuik-block-title">Field inequality (STEM)</h3>
+              <p class="edu-tuik-block-desc">
+                Share of women among graduates in STEM vs other fields.
+              </p>
+              <div
+                class="tuik-donut-wrap"
+                role="img"
+                aria-label="STEM: 26.9 percent women. Other fields: 73.1 percent."
+              >
+                <div class="tuik-donut" style="--stem-p: 26.9">
+                  <div class="tuik-donut-hole">
+                    <span class="tuik-donut-pct">26.9%</span>
+                    <span class="tuik-donut-sub">women in STEM</span>
+                  </div>
+                </div>
+                <ul class="tuik-donut-legend">
+                  <li><span class="tuik-dot tuik-dot--stem"></span> STEM: 26.9% women</li>
+                  <li><span class="tuik-dot tuik-dot--other"></span> Other fields: 73.1%</li>
+                </ul>
+              </div>
+            </div>
+            <div class="edu-tuik-split-side">
+              <h3 class="edu-tuik-block-title">Academic representation</h3>
+              <p class="edu-tuik-block-desc">
+                Women’s share in senior academic roles (selected indicators).
+              </p>
+              <div class="tuik-rep">
+                <div class="tuik-rep-row">
+                  <span class="tuik-rep-label">Professors</span>
+                  <div class="tuik-rep-track">
+                    <div class="tuik-rep-fill" style="width: 34.9%"></div>
+                  </div>
+                  <span class="tuik-rep-val">34.9%</span>
+                </div>
+                <div class="tuik-rep-row">
+                  <span class="tuik-rep-label">Rectors (state universities)</span>
+                  <div class="tuik-rep-track">
+                    <div class="tuik-rep-fill tuik-rep-fill--low" style="width: 4.7%"></div>
+                  </div>
+                  <span class="tuik-rep-val">4.7%</span>
+                </div>
+                <p class="tuik-rep-note">Rectors: women’s share as low as 4.7%.</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="edu-tuik-block">
+            <h3 class="edu-tuik-block-title">Poverty and education</h3>
+            <p class="edu-tuik-block-desc">
+              Poverty rate by highest education level completed (official
+              household statistics).
+            </p>
+            <div
+              class="tuik-poverty"
+              role="group"
+              aria-label="Poverty rates by education level"
+            >
+              <div class="tuik-poverty-row">
+                <span class="tuik-poverty-label">Illiterate</span>
+                <div class="tuik-poverty-track">
+                  <div class="tuik-poverty-fill" style="width: 48.3%"></div>
+                </div>
+                <span class="tuik-poverty-val">48.3%</span>
+              </div>
+              <div class="tuik-poverty-row">
+                <span class="tuik-poverty-label">Low education</span>
+                <div class="tuik-poverty-track">
+                  <div class="tuik-poverty-fill tuik-poverty-fill--mid" style="width: 22.4%"></div>
+                </div>
+                <span class="tuik-poverty-val">22.4%</span>
+              </div>
+              <div class="tuik-poverty-row">
+                <span class="tuik-poverty-label">Higher education</span>
+                <div class="tuik-poverty-track">
+                  <div class="tuik-poverty-fill tuik-poverty-fill--low" style="width: 3.8%"></div>
+                </div>
+                <span class="tuik-poverty-val">3.8%</span>
+              </div>
+            </div>
+          </div>
+
+          <aside class="edu-tuik-insight">
+            <p>
+              Access to education is improving, but gender gaps remain in
+              duration, fields of study, and leadership positions.
+            </p>
+          </aside>
+
+          <footer class="edu-tuik-source">
+            <p>
+              Source:
+              <a
+                href="https://www.tuik.gov.tr/media/announcements/ist_kadin2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >TÜİK, Women in Statistics 2025</a>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </template>
+
+    <template id="pol-labor-market-tpl">
+      <div id="detail-pol-labor" class="pol-labor-anchor">
+        <header class="pol-labor-bridge" lang="en">
+          <p class="pol-labor-bridge-text">
+            The chart and pay summary below describe
+            <strong>labor force participation and employment</strong>, not the
+            WEF Political Empowerment subindex. Because this portal groups
+            content under three themes (education, health, politics) without a
+            separate economy card, this block is included here under
+            <strong>Political empowerment</strong> as additional context.
+          </p>
+        </header>
+
+        <section class="pol-labor" aria-labelledby="pol-labor-heading" lang="en">
+          <div class="pol-labor-inner">
+            <h2 id="pol-labor-heading" class="pol-labor-title">
+              Women’s labor force participation and employment in Türkiye
+            </h2>
+            <p class="pol-labor-dek">
+              Selected indicators, 2002–2025 (percent). The 2025 column uses
+              midpoint values where official tables publish a range; see note
+              below.
+            </p>
+            <div
+              class="pol-labor-chart-wrap"
+              role="region"
+              aria-label="Labor force and employment trends chart"
+            >
+              <div class="plot-skeleton" aria-hidden="true"></div>
+              <div id="pol-labor-chart" class="plotly-map plotly-map--pol-labor"></div>
+            </div>
+            <p class="pol-labor-note">
+              <strong>2025 (*):</strong> Figures shown for 2025 are preliminary
+              indicators based on TÜİK monthly and quarterly labor statistics
+              and official announcements; annual definitive statistics may revise
+              them.
+            </p>
+            <footer class="pol-labor-source">
+              <p>
+                Sources: Turkish Statistical Institute (TÜİK), Labour Force
+                Statistics, Women in Statistics, informal employment statistics;
+                TÜİK Data Portal; OECD Gender Data Portal and
+                <em>Economic Surveys: Türkiye</em> (context).
+              </p>
+            </footer>
+          </div>
+        </section>
+
+        <section class="pol-paygap" aria-labelledby="pol-paygap-heading" lang="en">
+          <div class="pol-paygap-inner">
+            <div class="pol-paygap-panel">
+              <h2 id="pol-paygap-heading" class="pol-paygap-title">
+                Gender equality in pay
+              </h2>
+              <p class="pol-paygap-sub">
+                (Gender pay gap: Türkiye vs OECD and EU, gross hourly earnings)
+              </p>
+              <p class="pol-paygap-lead">
+                In Türkiye the estimated gender pay gap is roughly
+                <strong>4–6%</strong>, well below OECD and EU averages. The
+                comparison uses the same order of magnitude as commonly cited
+                international aggregates for gross hourly earnings.
+              </p>
+              <div class="pol-paygap-circles" role="group" aria-label="Pay gap comparison">
+                <div class="pol-paygap-circle pol-paygap-circle--outline">
+                  <span class="pol-paygap-circle-label">OECD average</span>
+                  <span class="pol-paygap-circle-val">13–15%</span>
+                </div>
+                <div class="pol-paygap-circle pol-paygap-circle--focus">
+                  <span class="pol-paygap-circle-label">Türkiye</span>
+                  <span class="pol-paygap-circle-val">4–6%</span>
+                </div>
+                <div class="pol-paygap-circle pol-paygap-circle--outline">
+                  <span class="pol-paygap-circle-label">EU average</span>
+                  <span class="pol-paygap-circle-val">12–13%</span>
+                </div>
+              </div>
+              <p class="pol-paygap-caption">
+                Gender pay gap (gross hourly earnings), illustrative band
+                comparison.
+              </p>
+            </div>
+            <ul class="pol-paygap-bullets">
+              <li>
+                <span class="pol-paygap-ico" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><ellipse cx="12" cy="6" rx="8" ry="3"/><path d="M4 6v6c0 1.7 3.6 3 8 3s8-1.3 8-3V6"/></svg>
+                </span>
+                <span
+                  >For similar qualifications and roles, the pay gap between
+                  women and men tends to be relatively narrow.</span
+                >
+              </li>
+              <li>
+                <span class="pol-paygap-ico" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="9" cy="7" r="3"/><path d="M3 21v-2a4 4 0 0 1 4-4h4a4 4 0 0 1 4 4v2"/><circle cx="17" cy="7" r="3"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/></svg>
+                </span>
+                <span
+                  >Türkiye’s gender pay gap sits clearly below the OECD country
+                  average in these aggregates.</span
+                >
+              </li>
+              <li>
+                <span class="pol-paygap-ico" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M5 12h14"/><path d="m12 5 7 7-7 7"/></svg>
+                </span>
+                <span
+                  >In the public sector and many regulated segments, pay scales are
+                  set by standard grids that do not vary by gender.</span
+                >
+              </li>
+            </ul>
+            <footer class="pol-paygap-foot">
+              <p>
+                Narrative aligned with national policy reporting on pay and labor
+                market structure; confirm exact percentages against TÜİK and OECD
+                releases before academic citation.
+              </p>
+            </footer>
+          </div>
+        </section>
+      </div>
+    </template>
+
+    <template id="health-maternal-tpl">
+      <section id="detail-health-maternal" class="mmr" aria-labelledby="mmr-title" lang="en">
+        <div class="mmr-inner">
+          <header class="mmr-head">
+            <h2 id="mmr-title" class="mmr-title">Maternal mortality rates</h2>
+            <p class="mmr-sub">Türkiye vs world (deaths per 100,000 live births)</p>
+            <p class="mmr-lead">
+              Türkiye’s maternal mortality ratio is far below the global average,
+              reflecting sustained investment in maternal health services and
+              monitoring. International modelled series can differ slightly from
+              single-year figures in national vital statistics.
+            </p>
+          </header>
+
+          <div class="mmr-compare" role="group" aria-label="Türkiye and world comparison">
+            <article class="mmr-card mmr-card--tr">
+              <span class="mmr-card-label">Türkiye</span>
+              <p class="mmr-card-range">about 13 to 15</p>
+              <p class="mmr-card-note">Typical range, 2015 to 2023 (modelled and reported series)</p>
+            </article>
+            <article class="mmr-card mmr-card--world">
+              <span class="mmr-card-label">World average</span>
+              <p class="mmr-card-range">about 210</p>
+              <p class="mmr-card-note">Global estimate for context</p>
+            </article>
+          </div>
+
+          <h3 class="mmr-section-title">Trend in Türkiye over time</h3>
+          <div class="mmr-timeline" role="group" aria-label="Maternal mortality trend by year">
+            <div class="mmr-timeline-point">
+              <span class="mmr-timeline-year">Early 2000s</span>
+              <span class="mmr-timeline-node" aria-hidden="true"></span>
+              <b class="mmr-timeline-val">40 to 50</b>
+            </div>
+            <div class="mmr-timeline-point">
+              <span class="mmr-timeline-year">2012</span>
+              <span class="mmr-timeline-node" aria-hidden="true"></span>
+              <b class="mmr-timeline-val">15.4</b>
+            </div>
+            <div class="mmr-timeline-point">
+              <span class="mmr-timeline-year">2015</span>
+              <span class="mmr-timeline-node" aria-hidden="true"></span>
+              <b class="mmr-timeline-val">13.7</b>
+            </div>
+            <div class="mmr-timeline-point">
+              <span class="mmr-timeline-year">2022</span>
+              <span class="mmr-timeline-node" aria-hidden="true"></span>
+              <b class="mmr-timeline-val">21</b>
+            </div>
+          </div>
+          <p class="mmr-timeline-unit">Timeline values are per 100,000 live births.</p>
+          <p class="mmr-timeline-foot">
+            The 2022 reading can show a temporary rise tied to the pandemic and
+            reporting cycles; subsequent years point downward again in official
+            series.
+          </p>
+
+          <h3 class="mmr-section-title">Policies behind the progress</h3>
+          <ul class="mmr-policies">
+            <li class="mmr-policy">
+              <span class="mmr-policy-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+              </span>
+              <span class="mmr-policy-text">Strong primary health care coverage and family medicine</span>
+            </li>
+            <li class="mmr-policy">
+              <span class="mmr-policy-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/><path d="M12 11v4"/><path d="M12 15h.01"/></svg>
+              </span>
+              <span class="mmr-policy-text">Routine antenatal and postnatal follow-up</span>
+            </li>
+            <li class="mmr-policy">
+              <span class="mmr-policy-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M6 22V4a2 2 0 0 1 2-2h8a2 2 0 0 1 2 2v18Z"/><path d="M6 12h12"/><path d="M10 6h4"/><path d="M10 10h4"/><path d="M10 14h4"/></svg>
+              </span>
+              <span class="mmr-policy-text">Mother-friendly hospital standards and safer delivery</span>
+            </li>
+            <li class="mmr-policy">
+              <span class="mmr-policy-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+              </span>
+              <span class="mmr-policy-text">Risk screening, referrals, and emergency obstetric readiness</span>
+            </li>
+          </ul>
+
+          <footer class="mmr-foot">
+            <p>
+              <strong>Sources:</strong>
+              <a
+                href="https://data.worldbank.org/indicator/SH.STA.MMRT?locations=TR"
+                target="_blank"
+                rel="noopener noreferrer"
+                >World Bank Open Data</a>
+              (maternal mortality ratio, SH.STA.MMRT);
+              <a
+                href="https://www.macrotrends.net/countries/TUR/turkey/maternal-mortality-rate"
+                target="_blank"
+                rel="noopener noreferrer"
+                >Macrotrends</a>
+              (country time series, current indicators through 2022 to 2023 where
+              published). Figures are rounded for display; confirm latest values
+              in the original databases.
+            </p>
+          </footer>
+        </div>
+      </section>
+    </template>
+
+    <template id="health-dashboard-tpl">
+      <section id="detail-health-dashboard" class="health-dash" aria-labelledby="health-dash-title" lang="en">
+        <div class="health-dash-inner">
+          <h2 id="health-dash-title" class="health-dash-title">
+            Health and survival
+          </h2>
+          <p class="health-dash-dek">
+            TÜİK 2025: Türkiye health snapshot (Women in Statistics 2025)
+          </p>
+
+          <div class="health-dash-grid">
+            <article class="health-dash-card health-dash-card--life">
+              <div class="health-dash-card-top">
+                <span class="health-dash-icon health-dash-icon--teal" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>
+                </span>
+                <span class="health-dash-badge health-dash-badge--teal">Life expectancy</span>
+              </div>
+              <div class="health-dash-stat">
+                <span class="health-dash-num">80.7</span>
+                <span class="health-dash-unit">years</span>
+              </div>
+              <p class="health-dash-label">Women: life expectancy at birth</p>
+              <div class="health-dash-footer">
+                <span>Men: 75.5 years</span>
+                <span class="health-dash-diff">+5.2 yr gap</span>
+              </div>
+            </article>
+
+            <article class="health-dash-card health-dash-card--hlife">
+              <div class="health-dash-card-top">
+                <span class="health-dash-icon health-dash-icon--light" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </span>
+                <span class="health-dash-badge health-dash-badge--light">Türkiye vs EU</span>
+              </div>
+              <div class="health-dash-stat">
+                <span class="health-dash-num">57.6</span>
+                <span class="health-dash-unit">years</span>
+              </div>
+              <p class="health-dash-label">Healthy life expectancy (women, Türkiye)</p>
+              <div class="health-dash-bar-wrap">
+                <p class="health-dash-bar-caption">EU average (women): 63.3 years</p>
+                <div class="health-dash-bar" role="img" aria-label="Türkiye 57.6 years is about 91 percent of the EU women average of 63.3 years">
+                  <div class="health-dash-bar-fill" style="width: 91%"></div>
+                </div>
+              </div>
+            </article>
+
+            <article class="health-dash-card health-dash-card--care">
+              <div class="health-dash-card-top">
+                <span class="health-dash-icon health-dash-icon--emerald" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </span>
+                <span class="health-dash-badge health-dash-badge--emerald">Care access</span>
+              </div>
+              <div class="health-dash-stat">
+                <span class="health-dash-num">99.6%</span>
+              </div>
+              <p class="health-dash-label">Prenatal care coverage</p>
+              <p class="health-dash-sub">Births in hospital: 99.4%</p>
+            </article>
+
+            <article class="health-dash-card health-dash-card--maternal">
+              <div class="health-dash-card-top">
+                <span class="health-dash-icon health-dash-icon--rose" aria-hidden="true">
+                  <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                </span>
+                <span class="health-dash-badge health-dash-badge--rose">Key indicator</span>
+              </div>
+              <div class="health-dash-stat">
+                <span class="health-dash-num">11.5</span>
+              </div>
+              <p class="health-dash-label">Maternal mortality (per 100,000 live births, Türkiye)</p>
+              <div class="health-dash-footer health-dash-footer--dots">
+                <span class="health-dash-dots" aria-hidden="true">
+                  <span></span><span></span><span></span><span class="is-soft"></span>
+                </span>
+                <span class="health-dash-eu">EU average: 6.0</span>
+              </div>
+            </article>
+          </div>
+
+          <footer class="health-dash-source">
+            <p>
+              Source:
+              <a
+                href="https://www.tuik.gov.tr/media/announcements/ist_kadin2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >TÜİK, Women in Statistics 2025</a>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </template>
+
+    <template id="pol-empowerment-tpl">
+      <section id="detail-pol-representation" class="pol-emp" aria-labelledby="pol-emp-heading" lang="en">
+        <div class="pol-emp-inner">
+          <div class="pol-emp-callout">
+            <div class="pol-emp-callout-head">
+              <span class="pol-emp-callout-icon" aria-hidden="true">
+                <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 8v4M12 16h.01"/></svg>
+              </span>
+              <h2 id="pol-emp-heading" class="pol-emp-callout-title">
+                Political empowerment and decision-making
+              </h2>
+            </div>
+            <p class="pol-emp-callout-text">
+              In the WEF 2025 report, <strong>Türkiye</strong> ranks
+              <strong>last</strong> in Europe on Political Empowerment, with a
+              score of about <strong>0.059</strong>, well below the global
+              average (about <strong>22.9%</strong> of the gap closed), reflecting
+              sharp inequality in who holds formal political power.
+            </p>
+          </div>
+
+          <p class="pol-emp-kicker">Representation hierarchy (TÜİK 2025)</p>
+
+          <div class="pol-emp-list">
+            <article class="pol-emp-row pol-emp-row--i0">
+              <div class="pol-emp-icon-wrap pol-emp-icon-wrap--blue">
+                <svg class="pol-emp-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><circle cx="12" cy="9" r="6"/><path d="M8 14v7l4-2 4 2v-7"/></svg>
+              </div>
+              <div class="pol-emp-body">
+                <div class="pol-emp-row-top">
+                  <h4 class="pol-emp-label">Ambassadors</h4>
+                  <span class="pol-emp-value">28.4%</span>
+                </div>
+                <p class="pol-emp-desc">Highest women’s share in foreign affairs</p>
+                <div class="pol-emp-bar" role="presentation"><span class="pol-emp-bar-fill" style="width: 28.4%"></span></div>
+              </div>
+            </article>
+
+            <article class="pol-emp-row pol-emp-row--i1">
+              <div class="pol-emp-icon-wrap pol-emp-icon-wrap--indigo">
+                <svg class="pol-emp-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M3 21h18"/><path d="M5 21V7l8-4v18"/><path d="M19 21V11l-6-4"/><path d="M9 9v.01"/><path d="M9 12v.01"/><path d="M9 15v.01"/><path d="M9 18v.01"/></svg>
+              </div>
+              <div class="pol-emp-body">
+                <div class="pol-emp-row-top">
+                  <h4 class="pol-emp-label">Members of parliament (GNAT)</h4>
+                  <span class="pol-emp-value">19.9%</span>
+                </div>
+                <p class="pol-emp-desc">119 of 600 seats held by women</p>
+                <div class="pol-emp-bar" role="presentation"><span class="pol-emp-bar-fill" style="width: 19.9%"></span></div>
+              </div>
+            </article>
+
+            <article class="pol-emp-row pol-emp-row--i2">
+              <div class="pol-emp-icon-wrap pol-emp-icon-wrap--purple">
+                <svg class="pol-emp-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="2" width="16" height="20" rx="2"/><path d="M9 22v-4h6v4"/><path d="M8 6h.01"/><path d="M16 6h.01"/><path d="M12 6h.01"/><path d="M12 10h.01"/><path d="M12 14h.01"/><path d="M16 10h.01"/><path d="M16 14h.01"/><path d="M8 10h.01"/><path d="M8 14h.01"/></svg>
+              </div>
+              <div class="pol-emp-body">
+                <div class="pol-emp-row-top">
+                  <h4 class="pol-emp-label">Senior executives</h4>
+                  <span class="pol-emp-value">18.3%</span>
+                </div>
+                <p class="pol-emp-desc">BIST 50 company boards of directors</p>
+                <div class="pol-emp-bar" role="presentation"><span class="pol-emp-bar-fill" style="width: 18.3%"></span></div>
+              </div>
+            </article>
+
+            <article class="pol-emp-row pol-emp-row--i3">
+              <div class="pol-emp-icon-wrap pol-emp-icon-wrap--orange">
+                <svg class="pol-emp-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="m22 11-3-3m0 0-3 3m3-3v12"/></svg>
+              </div>
+              <div class="pol-emp-body">
+                <div class="pol-emp-row-top">
+                  <h4 class="pol-emp-label">Mayors</h4>
+                  <span class="pol-emp-value">5.6%</span>
+                </div>
+                <p class="pol-emp-desc">A tight bottleneck in local government</p>
+                <div class="pol-emp-bar" role="presentation"><span class="pol-emp-bar-fill pol-emp-bar-fill--warn" style="width: 5.6%"></span></div>
+              </div>
+            </article>
+
+            <article class="pol-emp-row pol-emp-row--i4">
+              <div class="pol-emp-icon-wrap pol-emp-icon-wrap--rose">
+                <svg class="pol-emp-svg" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="m14 12-8.5 8.5a2.12 2.12 0 1 1-3-3L11 9"/><path d="M15 13 9 7l4-4 6 6-4 4Z"/><path d="m14 6 4 4"/><path d="M12 2v4"/><path d="M12 18v4"/></svg>
+              </div>
+              <div class="pol-emp-body">
+                <div class="pol-emp-row-top">
+                  <h4 class="pol-emp-label">Council of Ministers</h4>
+                  <span class="pol-emp-value">1 / 17</span>
+                </div>
+                <p class="pol-emp-desc">Limited representation in the executive</p>
+                <div class="pol-emp-bar" role="presentation"><span class="pol-emp-bar-fill pol-emp-bar-fill--rose" style="width: 5.882%"></span></div>
+              </div>
+            </article>
+          </div>
+
+          <footer class="pol-emp-foot">
+            <p>
+              Sources:
+              <a
+                href="https://www.weforum.org/publications/global-gender-gap-report-2025/"
+                target="_blank"
+                rel="noopener noreferrer"
+                >WEF Global Gender Gap Report 2025</a>;
+              <a
+                href="https://www.tuik.gov.tr/media/announcements/ist_kadin2025.pdf"
+                target="_blank"
+                rel="noopener noreferrer"
+                >TÜİK, Women in Statistics 2025</a>
+            </p>
+          </footer>
+        </div>
+      </section>
+    </template>
+
+    <footer class="site-footer-mini" role="contentinfo">
+      <div class="container site-footer-mini-inner">
+        <a
+          class="site-footer-insta"
+          href="https://www.instagram.com/equaldataturkiye?igsh=ZmFvcmx2ZWwwNHFo&utm_source=qr"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="EqualDataTürkiye on Instagram"
+        >
+          <span class="site-footer-insta-ring">
+            <svg
+              class="site-footer-insta-svg"
+              xmlns="http://www.w3.org/2000/svg"
+              viewBox="0 0 24 24"
+              width="30"
+              height="30"
+              fill="none"
+              aria-hidden="true"
+            >
+              <defs>
+                <linearGradient
+                  id="instaStrokeGrad"
+                  x1="0%"
+                  y1="0%"
+                  x2="100%"
+                  y2="100%"
+                >
+                  <stop offset="0%" stop-color="#f8b8d8" />
+                  <stop offset="50%" stop-color="#c89fd8" />
+                  <stop offset="100%" stop-color="#7e4fab" />
+                </linearGradient>
+              </defs>
+              <rect
+                x="3.25"
+                y="3.25"
+                width="17.5"
+                height="17.5"
+                rx="5"
+                ry="5"
+                fill="none"
+                stroke="url(#instaStrokeGrad)"
+                stroke-width="1.35"
+              />
+              <circle
+                cx="12"
+                cy="12"
+                r="4.1"
+                fill="none"
+                stroke="url(#instaStrokeGrad)"
+                stroke-width="1.35"
+              />
+              <circle
+                cx="17.65"
+                cy="6.35"
+                r="1.05"
+                fill="url(#instaStrokeGrad)"
+              />
+            </svg>
+          </span>
+        </a>
+        <a class="site-footer-contact-link" href="./about.html#contact-us">Contact Us</a>
+      </div>
+    </footer>
+
+    <script src="https://cdn.plot.ly/plotly-2.30.0.min.js"></script>
+    <script src="./script.js"></script>
+  </body>
+</html>

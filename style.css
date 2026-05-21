@@ -21,9 +21,18 @@
   box-sizing: border-box;
 }
 
+img,
+picture,
+video {
+  max-width: 100%;
+  height: auto;
+}
+
 html {
   cursor: var(--cursor-female-20), auto;
   scroll-behavior: smooth;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
 }
 
 body {
@@ -31,6 +40,8 @@ body {
   font-family: "Inter", Arial, sans-serif;
   color: var(--text-dark);
   background: var(--surface-soft);
+  overflow-x: clip;
+  padding-inline: env(safe-area-inset-left, 0px) env(safe-area-inset-right, 0px);
 }
 
 /* Typing fields: keep text caret semantics */
@@ -1121,18 +1132,54 @@ a.hero-help-link {
 .map-wrap {
   border: 1px solid #e4d7eb;
   background: #ffffff;
+  max-width: 100%;
+  overflow-x: clip;
 }
 
 .map-container {
   position: relative;
   width: 100%;
+  max-width: 100%;
 }
 
 .plotly-map {
   position: relative;
   z-index: 2;
   width: 100%;
+  max-width: 100%;
   height: 420px;
+  box-sizing: border-box;
+}
+
+/* Plotly can paint colorbar outside — keep graphics inside detail cards on narrow screens */
+.detail-card .plotly-map .js-plotly-plot {
+  max-width: 100% !important;
+}
+
+/**
+ * Comparator choropleths (education / health / political): panoramic “banner” frame on larger viewports —
+ * closer to dashboards (Our World In Data–style wide map strip than a tall square).
+ */
+@media (min-width: 641px) {
+  #detail-edu-map .map-container,
+  #detail-health-map .map-container,
+  #detail-pol-map .map-container {
+    aspect-ratio: 2.15 / 1;
+    max-height: min(460px, 72dvh);
+    border-radius: 10px;
+    overflow: hidden;
+  }
+
+  #detail-edu-map .plotly-map,
+  #detail-health-map .plotly-map,
+  #detail-pol-map .plotly-map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
 }
 
 .detail-anchor {
@@ -2291,14 +2338,29 @@ a.hero-help-link {
 
   .search-area {
     width: 100%;
+    max-width: 100%;
   }
 
   .hero {
-    min-height: 560px;
+    min-height: clamp(460px, 78dvh, 560px);
   }
 
   .explore-grid {
     grid-template-columns: 1fr;
+    perspective: none;
+  }
+
+  /* Touch / narrow: disable 3D hover tilt — improves readability & avoids sticky hover states */
+  .explore-card:hover,
+  .explore-card:focus-within {
+    transform: none;
+    box-shadow: 0 2px 8px rgba(58, 29, 80, 0.08);
+    border-color: #e1d9e8;
+  }
+
+  .explore-card:hover .card-visual,
+  .explore-card:focus-within .card-visual {
+    transform: none;
   }
 }
 
@@ -3246,5 +3308,133 @@ a.hero-help-link {
 
   .pol-emp-callout {
     padding: 1rem 1.1rem;
+  }
+
+  .pol-emp-row {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.92rem;
+  }
+
+  .pol-emp-row-top {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+  }
+
+  .pol-emp-value {
+    align-self: flex-start;
+  }
+}
+
+@media (max-width: 640px) {
+  .explore-section {
+    padding: 2rem 0 2.5rem;
+  }
+
+  .explore-card .card-visual {
+    height: min(176px, 42vw);
+  }
+
+  .explore-card {
+    padding: 0.75rem 0.82rem 1.05rem;
+  }
+
+  .detail-card {
+    padding: 0.85rem 0.92rem 1rem;
+    max-width: 100%;
+  }
+
+  .detail-sticky-bar {
+    margin: -0.85rem -0.92rem 0.75rem;
+    padding: 0.45rem 0.92rem 0.52rem;
+  }
+
+  .detail-lead {
+    font-size: 0.92rem;
+    line-height: 1.55;
+  }
+
+  .detail-close {
+    min-width: 44px;
+    min-height: 44px;
+    border-radius: 12px;
+  }
+
+  .detail-jump-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 40px;
+    padding: 0.32rem 0.72rem;
+  }
+
+  .card-toggle {
+    padding-block: 0.4rem;
+    min-height: 48px;
+  }
+
+  /* Comparator maps: boxed frame + fills width (Plotly resize + choroplethLayoutForViewport compact) */
+  .plotly-map {
+    height: clamp(278px, 52dvh, 400px);
+  }
+
+  #detail-edu-map .map-container,
+  #detail-health-map .map-container,
+  #detail-pol-map .map-container {
+    position: relative;
+    aspect-ratio: 4 / 3;
+    min-height: clamp(260px, 50dvh, 380px);
+    max-height: 58dvh;
+    border-radius: 10px;
+    overflow: hidden;
+    max-width: 100%;
+  }
+
+  #detail-edu-map .plotly-map,
+  #detail-health-map .plotly-map,
+  #detail-pol-map .plotly-map {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    min-height: 0;
+    max-height: none;
+  }
+
+  .main-nav .container {
+    width: 100%;
+    padding-inline: 0;
+    max-width: none;
+    margin-inline: 0;
+  }
+
+  .main-nav ul {
+    flex-wrap: nowrap;
+    justify-content: flex-start;
+    gap: 0;
+    overflow-x: auto;
+    overflow-y: hidden;
+    -webkit-overflow-scrolling: touch;
+    scroll-snap-type: x proximity;
+    padding: 0 0.85rem calc(6px + env(safe-area-inset-bottom, 0px));
+  }
+
+  .main-nav ul::-webkit-scrollbar {
+    height: 4px;
+  }
+
+  .main-nav ul::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.25);
+    border-radius: 999px;
+  }
+
+  .main-nav a {
+    flex: 0 0 auto;
+    white-space: nowrap;
+    scroll-snap-align: start;
+    padding: 0.9rem 1.05rem;
+    font-size: 0.72rem;
+    letter-spacing: 0.05em;
   }
 }

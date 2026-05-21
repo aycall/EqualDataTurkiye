@@ -70,12 +70,283 @@ function focusDetailCloseAfterReveal(card) {
   }, 400);
 }
 
+/** Phones / narrow panels: tuck colorbar under the map (default Plotly choropleth colorbar overflows horizontally). */
+function isCompactMapViewport() {
+  return window.matchMedia("(max-width: 640px)").matches;
+}
+
+/** Desktop colorbar (+ vertical default) becomes a horizontal paper-anchored bar on compact viewports. */
+function choroplethColorbarForViewport(desktopBar) {
+  if (!isCompactMapViewport()) return desktopBar;
+  const titleText =
+    typeof desktopBar.title === "string"
+      ? desktopBar.title
+      : desktopBar.title?.text ?? "";
+  const titleFont =
+    desktopBar.titlefont ??
+    desktopBar.title?.font ?? { color: "rgba(106, 15, 60, 0.95)", size: 11 };
+  return {
+    ...desktopBar,
+    orientation: "h",
+    xref: "paper",
+    yref: "paper",
+    x: 0.5,
+    xanchor: "center",
+    y: 0.055,
+    yanchor: "middle",
+    len: 0.9,
+    thickness: 20,
+    tickfont: {
+      ...(typeof desktopBar.tickfont === "object" ? desktopBar.tickfont : {}),
+      size: 10,
+    },
+    title: titleText
+      ? { text: titleText, side: "bottom", font: titleFont }
+      : undefined,
+  };
+}
+
+/** Extra bottom inner space when the horizontal colorbar is shown. */
+function choroplethLayoutForViewport(geo) {
+  const compact = isCompactMapViewport();
+  if (!compact) {
+    return {
+      dragmode: false,
+      margin: { l: 0, r: 0, t: 0, b: 0 },
+      paper_bgcolor: "rgba(0,0,0,0)",
+      geo: {
+        domain: { x: [0, 1], y: [0.02, 0.982] },
+        ...geo,
+      },
+    };
+  }
+  return {
+    dragmode: false,
+    margin: { l: 6, r: 6, t: 4, b: 84 },
+    paper_bgcolor: "rgba(0,0,0,0)",
+    geo: {
+      domain: { x: [0.015, 0.985], y: [0.045, 0.89] },
+      ...geo,
+    },
+  };
+}
+
+/** After layout/CSS settle (mobile toolbars, panel open): remeasure Plotly. */
+function schedulePlotsResize(delayMs = 0) {
+  window.setTimeout(() => {
+    if (eduMapRendered) window.Plotly?.Plots?.resize?.(eduMapEl);
+    if (healthMapRendered) window.Plotly?.Plots?.resize?.(healthMapEl);
+    if (polMapRendered) window.Plotly?.Plots?.resize?.(polMapEl);
+    if (polLaborRendered) window.Plotly?.Plots?.resize?.(polLaborChartEl);
+  }, delayMs);
+}
+
+/** Choropleths: wheel/double‑click zoom off; map drag off (felt “jiggly”). */
+const COMPARATOR_CHOROPLETH_CONFIG = {
+  responsive: true,
+  displayModeBar: false,
+  scrollZoom: false,
+  doubleClick: false,
+};
+
+/** Comparator economies — identical order/scores ↔ trace index (choropleths). */
+const COMPARATOR_MAP_LOCATIONS = [
+  "Turkey",
+  "Germany",
+  "France",
+  "United States",
+  "India",
+  "China",
+  "Brazil",
+  "Angola",
+  "Mali",
+  "Chad",
+];
+
+/** Lon/lat view boxes for click‑to‑zoom (country names aligned with Plotly `locationmode: "country names"`). */
+const COMPARATOR_MAP_ZOOM = {
+  Turkey: { lon: [25, 46], lat: [35.8, 42.5] },
+  Germany: { lon: [5, 16], lat: [47, 55.5] },
+  France: { lon: [-5.5, 10], lat: [41, 51.5] },
+  "United States": { lon: [-126, -65], lat: [24, 50] },
+  India: { lon: [68, 98], lat: [6, 37.5] },
+  China: { lon: [73, 135], lat: [18, 54] },
+  Brazil: { lon: [-74, -34], lat: [-34, 6] },
+  Angola: { lon: [11, 24.5], lat: [-18.5, -4] },
+  Mali: { lon: [-12.5, 5], lat: [10, 26] },
+  Chad: { lon: [13.5, 24], lat: [7.5, 24] },
+};
+
+/** Global view latitude span: trims polar “empty” sea (similar to atlas / news dashboards). */
+const WORLD_MAP_LAT_VIEW = [-50, 82];
+
+/** Natural Earth projection: common atlas-style framing on choropleth sites (maps feel wider / less cramped). */
+const WORLD_MAP_PROJECTION = {
+  type: "natural earth",
+  rotation: { lon: 10, lat: 0 },
+};
+
+function comparatorMapLonLat(zoomCountry) {
+  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? COMPARATOR_MAP_ZOOM[zoomCountry] : null;
+  if (!z) {
+    return {
+      projection: WORLD_MAP_PROJECTION,
+      lonaxis: { range: [-180, 180], showgrid: false, fixedrange: true },
+      lataxis: { range: WORLD_MAP_LAT_VIEW, showgrid: false, fixedrange: true },
+    };
+  }
+  return {
+    projection: WORLD_MAP_PROJECTION,
+    lonaxis: { range: z.lon, showgrid: false, fixedrange: true },
+    lataxis: { range: z.lat, showgrid: false, fixedrange: true },
+  };
+}
+
+function comparatorMapClickLocation(pt) {
+  if (!pt) return null;
+  if (typeof pt.location === "string" && COMPARATOR_MAP_ZOOM[pt.location]) return pt.location;
+  if (typeof pt.text === "string" && COMPARATOR_MAP_ZOOM[pt.text]) return pt.text;
+  if (Number.isInteger(pt.pointNumber)) {
+    const name = COMPARATOR_MAP_LOCATIONS[pt.pointNumber];
+    if (name && COMPARATOR_MAP_ZOOM[name]) return name;
+  }
+  return null;
+}
+
+/** Relayout patches after zoom toggle (flattened Plotly geo keys). */
+function getComparatorMapRelayoutGeoPatch(zoomCountry) {
+  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? COMPARATOR_MAP_ZOOM[zoomCountry] : null;
+  if (!z) {
+    return {
+      "geo.projection.type": "natural earth",
+      "geo.projection.rotation.lon": 10,
+      "geo.projection.rotation.lat": 0,
+      "geo.lonaxis.range": [-180, 180],
+      "geo.lataxis.range": WORLD_MAP_LAT_VIEW,
+      "geo.lonaxis.fixedrange": true,
+      "geo.lataxis.fixedrange": true,
+      "geo.showcoastlines": false,
+      "geo.coastlinewidth": 0,
+    };
+  }
+  return {
+    "geo.projection.type": "natural earth",
+    "geo.projection.rotation.lon": 10,
+    "geo.projection.rotation.lat": 0,
+    "geo.lonaxis.range": z.lon,
+    "geo.lataxis.range": z.lat,
+    "geo.lonaxis.fixedrange": true,
+    "geo.lataxis.fixedrange": true,
+    "geo.showcoastlines": true,
+    "geo.coastlinewidth": 0.35,
+  };
+}
+
+function makeEduGeo(zoomCountry) {
+  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
+  const coastal = Boolean(z);
+  return {
+    showframe: false,
+    showcoastlines: coastal,
+    coastlinecolor: "rgba(106, 15, 60, 0.26)",
+    coastlinewidth: coastal ? 0.35 : 0,
+    bgcolor: "rgba(0,0,0,0)",
+    landcolor: "rgba(253, 231, 241, 0.52)",
+    oceancolor: "rgba(106, 15, 60, 0.06)",
+    showocean: true,
+    lakecolor: "rgba(106, 15, 60, 0.06)",
+    showlakes: true,
+    ...comparatorMapLonLat(z),
+  };
+}
+
+function makeHealthGeo(zoomCountry) {
+  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
+  const coastal = Boolean(z);
+  return {
+    showframe: false,
+    showcoastlines: coastal,
+    coastlinecolor: "rgba(99, 102, 241, 0.42)",
+    coastlinewidth: coastal ? 0.35 : 0,
+    bgcolor: "rgba(0,0,0,0)",
+    landcolor: "rgba(245, 243, 255, 0.6)",
+    oceancolor: "rgba(49, 46, 129, 0.07)",
+    showocean: true,
+    lakecolor: "rgba(49, 46, 129, 0.07)",
+    showlakes: true,
+    ...comparatorMapLonLat(z),
+  };
+}
+
+function makePolGeo(zoomCountry) {
+  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
+  const coastal = Boolean(z);
+  return {
+    showframe: false,
+    showcoastlines: coastal,
+    coastlinecolor: "rgba(154, 74, 110, 0.42)",
+    coastlinewidth: coastal ? 0.35 : 0,
+    bgcolor: "rgba(0,0,0,0)",
+    landcolor: "rgba(255, 245, 240, 0.48)",
+    oceancolor: "rgba(76, 31, 61, 0.06)",
+    showocean: true,
+    lakecolor: "rgba(76, 31, 61, 0.06)",
+    showlakes: true,
+    ...comparatorMapLonLat(z),
+  };
+}
+
 const eduToggle = document.querySelector(".card-toggle[data-open-edu='true']");
 const eduAnchor = document.getElementById("edu-detail-anchor");
 let eduMapRendered = false;
 let eduMapEl = null;
+/** @type {string | null} */
+let eduMapZoomedCountry = null;
+let eduMapClickBound = false;
 let polLaborRendered = false;
 let polLaborChartEl = null;
+
+function bindEduMapClick() {
+  if (!eduMapEl || eduMapClickBound || !window.Plotly) return;
+  if (typeof eduMapEl.on !== "function") return;
+  eduMapClickBound = true;
+  eduMapEl.on("plotly_click", (ev) => {
+    if (!eduMapRendered || !window.Plotly || !eduMapEl) return;
+    const loc = comparatorMapClickLocation(ev.points?.[0]);
+    if (!loc) return;
+    eduMapZoomedCountry = eduMapZoomedCountry === loc ? null : loc;
+    window.Plotly.relayout(eduMapEl, getComparatorMapRelayoutGeoPatch(eduMapZoomedCountry));
+    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(eduMapEl));
+  });
+}
+
+function bindHealthMapClick() {
+  if (!healthMapEl || healthMapClickBound || !window.Plotly) return;
+  if (typeof healthMapEl.on !== "function") return;
+  healthMapClickBound = true;
+  healthMapEl.on("plotly_click", (ev) => {
+    if (!healthMapRendered || !window.Plotly || !healthMapEl) return;
+    const loc = comparatorMapClickLocation(ev.points?.[0]);
+    if (!loc) return;
+    healthMapZoomedCountry = healthMapZoomedCountry === loc ? null : loc;
+    window.Plotly.relayout(healthMapEl, getComparatorMapRelayoutGeoPatch(healthMapZoomedCountry));
+    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(healthMapEl));
+  });
+}
+
+function bindPolMapClick() {
+  if (!polMapEl || polMapClickBound || !window.Plotly) return;
+  if (typeof polMapEl.on !== "function") return;
+  polMapClickBound = true;
+  polMapEl.on("plotly_click", (ev) => {
+    if (!polMapRendered || !window.Plotly || !polMapEl) return;
+    const loc = comparatorMapClickLocation(ev.points?.[0]);
+    if (!loc) return;
+    polMapZoomedCountry = polMapZoomedCountry === loc ? null : loc;
+    window.Plotly.relayout(polMapEl, getComparatorMapRelayoutGeoPatch(polMapZoomedCountry));
+    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(polMapEl));
+  });
+}
 
 function renderEduMap() {
   if (eduMapRendered) return;
@@ -85,18 +356,6 @@ function renderEduMap() {
     return;
   }
 
-  const locations = [
-    "Turkey",
-    "Germany",
-    "France",
-    "United States",
-    "India",
-    "China",
-    "Brazil",
-    "Angola",
-    "Mali",
-    "Chad",
-  ];
   // WEF Global Gender Gap Report 2025: Educational Attainment subindex (0-1)
   // Country values from published 2025 GGGI country tables (see WEF report + data annexes).
   const scores = [0.986, 0.988, 1.0, 1.0, 0.971, 0.935, 1.0, 0.806, 0.796, 0.666];
@@ -104,7 +363,7 @@ function renderEduMap() {
   const data = [
     {
       type: "choropleth",
-      locations,
+      locations: COMPARATOR_MAP_LOCATIONS,
       locationmode: "country names",
       z: scores,
       // Palette aligned to the site's purple/pink UI (low → light, high → dark).
@@ -120,33 +379,21 @@ function renderEduMap() {
       zmin: 0.6,
       zmax: 1.0,
       marker: { line: { color: "rgba(255,255,255,0.85)", width: 0.7 } },
-      colorbar: {
+      colorbar: choroplethColorbarForViewport({
         title: "Educational Attainment (2025)",
         tickcolor: "rgba(106, 15, 60, 0.85)",
         tickfont: { color: "rgba(106, 15, 60, 0.9)" },
         titlefont: { color: "rgba(106, 15, 60, 0.95)" },
         outlinecolor: "rgba(106, 15, 60, 0.25)",
         bgcolor: "rgba(253, 231, 241, 0.72)",
-      },
+      }),
     },
   ];
 
-  const layout = {
-    margin: { l: 0, r: 0, t: 0, b: 0 },
-    paper_bgcolor: "rgba(0,0,0,0)",
-    geo: {
-      showframe: false,
-      showcoastlines: false,
-      bgcolor: "rgba(0,0,0,0)",
-      landcolor: "rgba(253, 231, 241, 0.52)",
-      oceancolor: "rgba(106, 15, 60, 0.06)",
-      showocean: true,
-      lakecolor: "rgba(106, 15, 60, 0.06)",
-      showlakes: true,
-    },
-  };
+  const layout = choroplethLayoutForViewport(makeEduGeo(eduMapZoomedCountry));
 
-  window.Plotly.newPlot(eduMapEl, data, layout, { displayModeBar: false, responsive: true });
+  window.Plotly.newPlot(eduMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
+  bindEduMapClick();
   markPlotReady(eduMapEl);
   eduMapRendered = true;
 }
@@ -315,6 +562,8 @@ function removeEduDetailCard() {
   if (existing) existing.remove();
   eduMapRendered = false;
   eduMapEl = null;
+  eduMapZoomedCountry = null;
+  eduMapClickBound = false;
   eduToggle?.setAttribute("aria-expanded", "false");
   window.requestAnimationFrame(() => {
     eduToggle?.focus({ preventScroll: true });
@@ -338,7 +587,8 @@ function toggleEduDetail() {
   if (!card) return;
 
   renderEduMap();
-  setTimeout(() => window.Plotly?.Plots?.resize?.(eduMapEl), 50);
+  schedulePlotsResize(50);
+  schedulePlotsResize(280);
   card.scrollIntoView({ behavior: "smooth", block: "start" });
   focusDetailCloseAfterReveal(card);
 }
@@ -349,6 +599,9 @@ const healthToggle = document.querySelector(".card-toggle[data-open-health='true
 const healthAnchor = document.getElementById("health-detail-anchor");
 let healthMapRendered = false;
 let healthMapEl = null;
+/** @type {string | null} */
+let healthMapZoomedCountry = null;
+let healthMapClickBound = false;
 
 function renderHealthMap() {
   if (healthMapRendered) return;
@@ -358,25 +611,13 @@ function renderHealthMap() {
     return;
   }
 
-  const locations = [
-    "Turkey",
-    "Germany",
-    "France",
-    "United States",
-    "India",
-    "China",
-    "Brazil",
-    "Angola",
-    "Mali",
-    "Chad",
-  ];
   // WEF Global Gender Gap Report 2025: Health and Survival subindex (0-1)
   const scores = [0.968, 0.966, 0.969, 0.973, 0.954, 0.947, 0.977, 0.972, 0.956, 0.966];
 
   const data = [
     {
       type: "choropleth",
-      locations,
+      locations: COMPARATOR_MAP_LOCATIONS,
       locationmode: "country names",
       z: scores,
       autocolorscale: false,
@@ -392,33 +633,21 @@ function renderHealthMap() {
       zmin: 0.93,
       zmax: 0.985,
       marker: { line: { color: "rgba(255,255,255,0.85)", width: 0.7 } },
-      colorbar: {
+      colorbar: choroplethColorbarForViewport({
         title: "Health & Survival (2025)",
         tickcolor: "rgba(49, 46, 129, 0.88)",
         tickfont: { color: "rgba(49, 46, 129, 0.9)" },
         titlefont: { color: "rgba(49, 46, 129, 0.95)" },
         outlinecolor: "rgba(99, 102, 241, 0.35)",
         bgcolor: "rgba(245, 243, 255, 0.92)",
-      },
+      }),
     },
   ];
 
-  const layout = {
-    margin: { l: 0, r: 0, t: 0, b: 0 },
-    paper_bgcolor: "rgba(0,0,0,0)",
-    geo: {
-      showframe: false,
-      showcoastlines: false,
-      bgcolor: "rgba(0,0,0,0)",
-      landcolor: "rgba(245, 243, 255, 0.6)",
-      oceancolor: "rgba(49, 46, 129, 0.07)",
-      showocean: true,
-      lakecolor: "rgba(49, 46, 129, 0.07)",
-      showlakes: true,
-    },
-  };
+  const layout = choroplethLayoutForViewport(makeHealthGeo(healthMapZoomedCountry));
 
-  window.Plotly.newPlot(healthMapEl, data, layout, { displayModeBar: false, responsive: true });
+  window.Plotly.newPlot(healthMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
+  bindHealthMapClick();
   markPlotReady(healthMapEl);
   healthMapRendered = true;
 }
@@ -518,6 +747,8 @@ function removeHealthDetailCard() {
   if (existing) existing.remove();
   healthMapRendered = false;
   healthMapEl = null;
+  healthMapZoomedCountry = null;
+  healthMapClickBound = false;
   healthToggle?.setAttribute("aria-expanded", "false");
   window.requestAnimationFrame(() => {
     healthToggle?.focus({ preventScroll: true });
@@ -541,7 +772,8 @@ function toggleHealthDetail() {
   if (!card) return;
 
   renderHealthMap();
-  setTimeout(() => window.Plotly?.Plots?.resize?.(healthMapEl), 50);
+  schedulePlotsResize(50);
+  schedulePlotsResize(280);
   card.scrollIntoView({ behavior: "smooth", block: "start" });
   focusDetailCloseAfterReveal(card);
 }
@@ -552,6 +784,9 @@ const polToggle = document.querySelector(".card-toggle[data-open-pol='true']");
 const polAnchor = document.getElementById("pol-detail-anchor");
 let polMapRendered = false;
 let polMapEl = null;
+/** @type {string | null} */
+let polMapZoomedCountry = null;
+let polMapClickBound = false;
 
 function renderPolMap() {
   if (polMapRendered) return;
@@ -561,29 +796,15 @@ function renderPolMap() {
     return;
   }
 
-  const locations = [
-    "Turkey",
-    "Germany",
-    "France",
-    "United States",
-    "India",
-    "China",
-    "Brazil",
-    "Angola",
-    "Mali",
-    "Chad",
-  ];
   // WEF Global Gender Gap Report 2025: Political Empowerment subindex (0-1).
-  // Türkiye: report states Europe’s lowest Political Empowerment score is Türkiye at 5.9% (~0.059).
-  // Germany: economy profile cites a 2023 political parity score of 63.4% and a drop since; ~0.609 used as 2025 approximation (confirm in WEF country table).
-  // Brazil: profile states political parity rose to "over 20%" from 2022-2023 and held (~0.22).
-  // France, US, India, China, Angola, Mali, Chad: placehold until copied from WEF published country data.
+  // Türkiye: Europe’s lowest score among European economies (~5.9% gap closed → ~0.059).
+  // Other comparators: align with published WEF country tables.
   const scores = [0.059, 0.609, 0.368, 0.418, 0.259, 0.173, 0.22, 0.265, 0.124, 0.098];
 
   const data = [
     {
       type: "choropleth",
-      locations,
+      locations: COMPARATOR_MAP_LOCATIONS,
       locationmode: "country names",
       z: scores,
       autocolorscale: false,
@@ -598,33 +819,21 @@ function renderPolMap() {
       zmin: 0,
       zmax: 0.65,
       marker: { line: { color: "rgba(255,255,255,0.85)", width: 0.7 } },
-      colorbar: {
+      colorbar: choroplethColorbarForViewport({
         title: "Political Empowerment (2025)",
         tickcolor: "rgba(76, 31, 61, 0.85)",
         tickfont: { color: "rgba(76, 31, 61, 0.9)" },
         titlefont: { color: "rgba(76, 31, 61, 0.95)" },
         outlinecolor: "rgba(76, 31, 61, 0.25)",
         bgcolor: "rgba(255, 245, 240, 0.78)",
-      },
+      }),
     },
   ];
 
-  const layout = {
-    margin: { l: 0, r: 0, t: 0, b: 0 },
-    paper_bgcolor: "rgba(0,0,0,0)",
-    geo: {
-      showframe: false,
-      showcoastlines: false,
-      bgcolor: "rgba(0,0,0,0)",
-      landcolor: "rgba(255, 245, 240, 0.48)",
-      oceancolor: "rgba(76, 31, 61, 0.06)",
-      showocean: true,
-      lakecolor: "rgba(76, 31, 61, 0.06)",
-      showlakes: true,
-    },
-  };
+  const layout = choroplethLayoutForViewport(makePolGeo(polMapZoomedCountry));
 
-  window.Plotly.newPlot(polMapEl, data, layout, { displayModeBar: false, responsive: true });
+  window.Plotly.newPlot(polMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
+  bindPolMapClick();
   markPlotReady(polMapEl);
   polMapRendered = true;
 }
@@ -726,6 +935,8 @@ function removePolDetailCard() {
   if (existing) existing.remove();
   polMapRendered = false;
   polMapEl = null;
+  polMapZoomedCountry = null;
+  polMapClickBound = false;
   polLaborRendered = false;
   polLaborChartEl = null;
   polToggle?.setAttribute("aria-expanded", "false");
@@ -752,22 +963,20 @@ function togglePolDetail() {
 
   renderPolMap();
   renderPolLaborChart();
-  setTimeout(() => {
-    window.Plotly?.Plots?.resize?.(polMapEl);
-    window.Plotly?.Plots?.resize?.(polLaborChartEl);
-  }, 50);
+  schedulePlotsResize(50);
+  schedulePlotsResize(280);
   card.scrollIntoView({ behavior: "smooth", block: "start" });
   focusDetailCloseAfterReveal(card);
 }
 
 polToggle?.addEventListener("click", togglePolDetail);
 
-window.addEventListener("resize", () => {
-  if (eduMapRendered) window.Plotly?.Plots?.resize?.(eduMapEl);
-  if (healthMapRendered) window.Plotly?.Plots?.resize?.(healthMapEl);
-  if (polMapRendered) window.Plotly?.Plots?.resize?.(polMapEl);
-  if (polLaborRendered) window.Plotly?.Plots?.resize?.(polLaborChartEl);
-});
+window.addEventListener("resize", () => schedulePlotsResize(50));
+/** Some mobile browsers omit visualViewport deltas on rotation until a tick later. */
+window.addEventListener("orientationchange", () => schedulePlotsResize(420));
+if (window.visualViewport) {
+  window.visualViewport.addEventListener("resize", () => schedulePlotsResize(50));
+}
 
 (function initCardLogoBackgroundRemoval() {
   // Disabled: image background removal can degrade illustration quality.

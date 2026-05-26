@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<!--
+  EqualData Türkiye — Reels sahne sırası (React AnimatedReels ile aynı metin/süre)
+  =====================================================================
+  1. Bu dosyayı Chrome’da açın.
+  2. Opsiyonel: Arka plan için proje köküne EqualData.jpg koyup aşağıdaki BACKGROUND_IMG
+     sabitini "EqualData.jpg" yapın veya başka görsel kullanın (şu an mor gradient).
+  3. Videoya çevirmek: OBS / Xbox Game Bar (Win+G) ile bu pencerenin içini 360×640
+     veya 1080×1920 boyutunda yakınlaştırıp kaydedin — Instagram Reels 9:16.
+  =====================================================================
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EqualData Türkiye — Reels (export)</title>
+    <style>
+      * {
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+      }
+
+      body {
+        font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+        background: #0f172a;
+        color: #fff;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 1rem;
+      }
+
+      .wrap-controls {
+        display: flex;
+        gap: 0.75rem;
+        margin-top: 1rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+
+      .btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.4rem;
+        padding: 0.65rem 1.1rem;
+        border: none;
+        border-radius: 999px;
+        font-weight: 700;
+        font-size: 0.85rem;
+        cursor: pointer;
+        transition: background 0.2s;
+      }
+
+      .btn-play {
+        background: #9333ea;
+        color: #fff;
+      }
+
+      .btn-play:hover {
+        background: #7e22ce;
+      }
+
+      .btn-reset {
+        background: #1e293b;
+        color: #cbd5e1;
+        border: 1px solid #334155;
+      }
+
+      .btn-reset:hover {
+        background: #334155;
+      }
+
+      /** 9 : 16 reel frame (~1080×1920 scale factor 3) → 360×640 */
+      .reel-shell {
+        position: relative;
+        width: 360px;
+        height: 640px;
+        border-radius: 24px;
+        overflow: hidden;
+        background: #000;
+        box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5), 0 0 0 1px #334155;
+        flex-shrink: 0;
+      }
+
+      .reel-shell.bg-zoom-active .layer-bg {
+        transform: scale(1.1);
+      }
+
+      .layer-bg {
+        position: absolute;
+        inset: 0;
+        background-size: cover;
+        background-position: center;
+        background-image:
+          radial-gradient(circle at 30% 20%, rgba(91, 42, 111, 0.45), transparent 50%),
+          radial-gradient(circle at 80% 80%, rgba(255, 127, 106, 0.2), transparent 45%),
+          linear-gradient(160deg, #3f1f52 0%, #2d1740 55%, #0f172a 100%);
+        transition: transform 15s ease-out;
+      }
+
+      /* Optional: uncomment or set EqualData.jpg in PROJECT ROOT for same URL as CRA public/ */
+      .layer-bg.custom-img {
+        background-image: linear-gradient(transparent, transparent), url("../../EqualData.jpg");
+      }
+
+      .layer-bg.custom-img.logo-fallback {
+        background-image: url("../equal-data-logo.png"), linear-gradient(160deg, #3f1f52, #1e1b4b);
+        background-blend-mode: overlay;
+      }
+
+      .layer-dim {
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          to bottom,
+          rgba(59, 7, 100, 0.4),
+          rgba(0, 0, 0, 0.7),
+          rgba(15, 23, 42, 0.85)
+        );
+        backdrop-filter: blur(2px);
+      }
+
+      /** Progress pills */
+      .progress-row {
+        position: absolute;
+        top: 1rem;
+        left: 0;
+        right: 0;
+        z-index: 30;
+        display: flex;
+        gap: 6px;
+        padding: 0 1rem;
+      }
+
+      .seg {
+        flex: 1;
+        height: 4px;
+        background: rgba(255, 255, 255, 0.2);
+        border-radius: 999px;
+        overflow: hidden;
+      }
+
+      .seg-fill {
+        height: 100%;
+        width: 0%;
+        background: #fff;
+        transition: none;
+      }
+
+      .seg-fill.run {
+        transition: width linear;
+        width: 100%;
+      }
+
+      .stage {
+        position: absolute;
+        inset: 0;
+        z-index: 20;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 2rem 1.85rem;
+        text-align: center;
+        user-select: none;
+      }
+
+      .brand-pill {
+        font-size: 10px;
+        font-weight: 900;
+        letter-spacing: 0.3em;
+        text-transform: uppercase;
+        color: #d8b4fe;
+        margin-top: 0.75rem;
+        animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+      }
+
+      @keyframes pulse {
+        0%,
+        100% {
+          opacity: 1;
+        }
+        50% {
+          opacity: 0.65;
+        }
+      }
+
+      .center-col {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+        padding-inline: 0.25rem;
+      }
+
+      .scene {
+        display: none;
+      }
+
+      .scene.active {
+        display: block;
+        width: 100%;
+      }
+
+      .badge-mini {
+        display: inline-block;
+        background: rgba(168, 85, 247, 0.2);
+        color: #d8b4fe;
+        border: 1px solid rgba(168, 85, 247, 0.35);
+        padding: 0.35rem 0.85rem;
+        border-radius: 999px;
+        font-size: 10px;
+        font-weight: 800;
+        letter-spacing: 0.15em;
+        text-transform: uppercase;
+      }
+
+      .headline-intro {
+        font-size: clamp(1.65rem, 5vw, 1.92rem);
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        background: linear-gradient(90deg, #fff 0%, #cbd5e1 50%, #e9d5ff 100%);
+        -webkit-background-clip: text;
+        background-clip: text;
+        -webkit-text-fill-color: transparent;
+        margin-top: 0.75rem;
+      }
+
+      .sub-intro {
+        font-size: 0.8125rem;
+        color: #cbd5e1;
+        margin-top: 0.85rem;
+        font-weight: 500;
+      }
+
+      .man-title {
+        font-size: 1.125rem;
+        font-weight: 900;
+        text-transform: uppercase;
+        letter-spacing: 0.12em;
+        color: #d8b4fe;
+      }
+
+      .man-body {
+        font-size: 1.18rem;
+        font-weight: 500;
+        line-height: 1.45;
+        color: #f1f5f9;
+        margin-top: 1rem;
+      }
+
+      .man-body .hl {
+        color: #c4b5fd;
+        font-weight: 800;
+      }
+
+      .pill-title {
+        text-align: center;
+        font-size: 0.75rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: #94a3b8;
+        margin-bottom: 0.85rem;
+      }
+
+      .row-card {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 1rem;
+        border-radius: 1rem;
+        backdrop-filter: blur(10px);
+        margin-bottom: 0.85rem;
+        opacity: 0;
+        animation: slideIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .icon-box {
+        padding: 0.5rem;
+        background: rgba(168, 85, 247, 0.2);
+        color: #d8b4fe;
+        border-radius: 0.85rem;
+        display: flex;
+      }
+
+      .row-card svg {
+        width: 20px;
+        height: 20px;
+      }
+
+      .row-label {
+        font-weight: 700;
+        font-size: 0.9375rem;
+        color: #e2e8f0;
+        text-align: left;
+      }
+
+      .out-circle {
+        width: 4rem;
+        height: 4rem;
+        background: #9333ea;
+        border-radius: 50%;
+        margin: 0 auto 1.25rem;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        box-shadow: 0 10px 25px rgba(147, 51, 234, 0.35);
+        animation: bounce 2s infinite;
+      }
+
+      @keyframes bounce {
+        0%,
+        100% {
+          transform: translateY(0);
+        }
+        50% {
+          transform: translateY(-6px);
+        }
+      }
+
+      .out-title {
+        font-size: 1.45rem;
+        font-weight: 900;
+      }
+
+      .out-sub {
+        font-size: 0.8125rem;
+        color: #e9d5ff;
+        max-width: 16rem;
+        margin: 1rem auto 0;
+        line-height: 1.5;
+        font-weight: 600;
+      }
+
+      .fade-up {
+        animation: fadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      .fade-in {
+        animation: fadeIn 0.65s ease forwards;
+      }
+
+      .scale-pop {
+        animation: scalePop 0.65s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+      }
+
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(20px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+        }
+        to {
+          opacity: 1;
+        }
+      }
+
+      @keyframes slideIn {
+        from {
+          opacity: 0;
+          transform: translateX(-26px);
+        }
+        to {
+          opacity: 1;
+          transform: translateX(0);
+        }
+      }
+
+      @keyframes scalePop {
+        from {
+          opacity: 0;
+          transform: scale(0.92);
+        }
+        to {
+          opacity: 1;
+          transform: scale(1);
+        }
+      }
+
+      .bottom-tag {
+        font-size: 10px;
+        color: #64748b;
+        font-family: ui-monospace, monospace;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        margin-bottom: 0.25rem;
+      }
+
+      /** Scale up reel for clearer recording — optional zoom */
+      @media (min-height: 800px) {
+        .zoom-scale {
+          transform: scale(1.25);
+          transform-origin: center top;
+        }
+      }
+
+      small.hint {
+        color: #94a3b8;
+        font-size: 0.72rem;
+        margin-top: 0.65rem;
+        max-width: 22rem;
+        text-align: center;
+        line-height: 1.45;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="zoom-scale">
+      <div id="reel" class="reel-shell">
+        <div class="layer-bg" id="layerBg"></div>
+        <div class="layer-dim"></div>
+
+        <div class="progress-row" id="progressRow"></div>
+
+        <div class="stage">
+          <div class="brand-pill">EqualDataTürkiye</div>
+
+          <div class="center-col">
+            <div id="scene0" class="scene fade-up active">
+              <span class="badge-mini">Launch Day</span>
+              <h2 class="headline-intro">WE ARE OFFICIALLY LIVE!</h2>
+              <p class="sub-intro">Welcome to EqualDataTürkiye</p>
+            </div>
+
+            <div id="scene1" class="scene fade-in">
+              <div class="man-title">Data For Equality</div>
+              <p class="man-body">
+                Time to read gender parity through
+                <span class="hl">verified facts</span>, not assumptions.
+              </p>
+            </div>
+
+            <div id="scene2" class="scene" style="text-align: left; width: 100%">
+              <div class="pill-title">Core Dimensions We Analyze</div>
+              <div id="pillarRows"></div>
+            </div>
+
+            <div id="scene3" class="scene scale-pop">
+              <div class="out-circle" aria-hidden="true">
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="32"
+                  height="32"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="#fff"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                >
+                  <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14" />
+                  <path d="M22 4 12 14.01l-3-3" />
+                </svg>
+              </div>
+              <h2 class="out-title">Shaping an Equal Future</h2>
+              <p class="out-sub">
+                Link in Bio to explore our interactive dashboards.
+              </p>
+            </div>
+          </div>
+
+          <div class="bottom-tag">WEF-aligned context · Türkiye data portal</div>
+        </div>
+      </div>
+    </div>
+
+    <small class="hint">
+      Recording tip: Crop to the rounded black rectangle only.<br />Total length ≈
+      <strong id="totalMs"></strong>s. Pause/Restart buttons below replicate your React prototype.
+      <br />Footnote shortened from “TÜİK 2025” (verify before publishing).
+    </small>
+
+    <div class="wrap-controls">
+      <button type="button" class="btn btn-play" id="btnToggle">⏸ Pause</button>
+      <button type="button" class="btn btn-reset" id="btnRestart">⟲ Restart</button>
+    </div>
+
+    <script>
+      (function () {
+        /** Set true and place EqualData.jpg next to package public/ equivalent = repo root for static serve */
+        const USE_EQUALDATA_JPEG = false;
+        const PROJECT_ROOT_IMG = "../../EqualData.jpg";
+
+        /** Same order & durations as your React scenes array */
+        const scenes = [
+          { id: 0, duration: 3500 },
+          { id: 1, duration: 4000 },
+          { id: 2, duration: 4500 },
+          { id: 3, duration: 3500 },
+        ];
+
+        let currentScene = 0;
+        let isPlaying = true;
+        let sceneTimeout = null;
+
+        const reel = document.getElementById("reel");
+        const layerBg = document.getElementById("layerBg");
+        const progressRow = document.getElementById("progressRow");
+        const pillarRows = document.getElementById("pillarRows");
+        const btnToggle = document.getElementById("btnToggle");
+        const btnRestart = document.getElementById("btnRestart");
+
+        const totalDur = scenes.reduce((a, s) => a + s.duration, 0);
+        document.getElementById("totalMs").textContent = (totalDur / 1000).toFixed(1);
+
+        if (USE_EQUALDATA_JPEG) {
+          layerBg.classList.add("custom-img");
+          layerBg.style.backgroundImage =
+            `linear-gradient(rgba(63,31,82,0.35),rgba(15,23,42,0.75)), url("${PROJECT_ROOT_IMG}")`;
+        }
+
+        const pillars = [
+          {
+            label: "Educational Attainment",
+            svg:
+              '<path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c3 3 9 3 12 0v-5"/>',
+          },
+          {
+            label: "Health & Survival",
+            svg:
+              '<path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.5 4.04 3 5.5l7 7Z"/><path d="M3.22 12H9.5l.5-1 6 11h-12l3-8"/>',
+          },
+          {
+            label: "Political Empowerment",
+            svg:
+              '<path d="m16 16 3-8 3 8"/><path d="M2 16l3-8 3 8"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M4 21h16"/>',
+          },
+        ];
+
+        pillars.forEach((p, i) => {
+          const row = document.createElement("div");
+          row.className = "row-card";
+          row.style.animationDelay = i * 0.22 + "s";
+          row.innerHTML =
+            '<div class="icon-box"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">' +
+            p.svg +
+            "</svg></div><span class=\"row-label\">" +
+            p.label +
+            "</span>";
+          pillarRows.appendChild(row);
+        });
+
+        function buildProgressDom() {
+          progressRow.innerHTML = "";
+          scenes.forEach(() => {
+            const seg = document.createElement("div");
+            seg.className = "seg";
+            const fill = document.createElement("div");
+            fill.className = "seg-fill";
+            seg.appendChild(fill);
+            progressRow.appendChild(seg);
+          });
+        }
+
+        function setSegWidths() {
+          const fills = progressRow.querySelectorAll(".seg-fill");
+          fills.forEach((el, idx) => {
+            el.classList.remove("run");
+            el.style.transitionDuration = "";
+            void el.offsetWidth;
+            if (idx < currentScene) {
+              el.style.width = "100%";
+            } else if (idx === currentScene && isPlaying) {
+              el.style.transitionDuration = scenes[currentScene].duration + "ms";
+              el.classList.add("run");
+              el.style.width = "100%";
+            } else {
+              el.style.width = "0%";
+            }
+          });
+        }
+
+        function showScene(idx) {
+          ["scene0", "scene1", "scene2", "scene3"].forEach(function (sid, i) {
+            document.getElementById(sid).classList.toggle("active", i === idx);
+          });
+          /** Replay enter animations — reset pillar rows */
+          var s2 = document.getElementById("scene2");
+          if (idx === 2) {
+            s2.querySelectorAll(".row-card").forEach(function (r, j) {
+              r.style.animation = "none";
+              void r.offsetWidth;
+              r.style.animation = "";
+              r.style.animationDelay = j * 0.22 + "s";
+              r.style.opacity = "";
+            });
+          }
+        }
+
+        function clearSceneTimer() {
+          if (sceneTimeout) {
+            clearTimeout(sceneTimeout);
+            sceneTimeout = null;
+          }
+        }
+
+        function scheduleNext() {
+          clearSceneTimer();
+          if (!isPlaying) return;
+          sceneTimeout = setTimeout(function advance() {
+            if (currentScene < scenes.length - 1) {
+              currentScene += 1;
+              showScene(currentScene);
+              setSegWidths();
+              scheduleNext();
+            } else {
+              isPlaying = false;
+              reel.classList.remove("bg-zoom-active");
+              btnToggle.textContent = "▶ Play again";
+              clearSceneTimer();
+            }
+          }, scenes[currentScene].duration);
+        }
+
+        function startFromBeginning() {
+          clearSceneTimer();
+          currentScene = 0;
+          isPlaying = true;
+          reel.classList.add("bg-zoom-active");
+          buildProgressDom();
+          showScene(0);
+          btnToggle.textContent = "⏸ Pause";
+          setTimeout(setSegWidths, 50);
+          scheduleNext();
+        }
+
+        btnToggle.addEventListener("click", function () {
+          if (currentScene === scenes.length - 1 && !isPlaying) {
+            startFromBeginning();
+            return;
+          }
+          isPlaying = !isPlaying;
+          btnToggle.textContent = isPlaying ? "⏸ Pause" : "▶ Play";
+          reel.classList.toggle("bg-zoom-active", isPlaying);
+          if (isPlaying) {
+            setSegWidths();
+            scheduleNext();
+          } else {
+            clearSceneTimer();
+          }
+        });
+
+        btnRestart.addEventListener("click", startFromBeginning);
+
+        buildProgressDom();
+        startFromBeginning();
+      })();
+    </script>
+  </body>
+</html>

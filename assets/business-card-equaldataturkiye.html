@@ -1,0 +1,297 @@
+<!DOCTYPE html>
+<!--
+  EqualDataTürkiye · Kartvizit şablonu (site paleti · Inter / hero uyumu).
+  Ölçü: 1050 × 600 px ≈ 3,5″ × 2″ @300 DPI — matbaa için uygun.
+
+  DÜZENLE: Arka yüzdeki name-line / mail-line içeriğini kendi bilgilerinizle değiştirin.
+
+  EXPORT:
+    Chrome · DevTools responsive · iki kartın boyutu sabit:
+      Ön: div.biz-front tam seç · screenshot
+      Arka: div.biz-back tam seç · screenshot
+    Veya hazır PNG: equaldata-business-card-front.png · equaldata-business-card-back.png
+
+-->
+<html lang="tr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kartvizit · EqualDataTürkiye</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --hero-bg: #3f1f52;
+        --nav-bg: #5b2a6f;
+        --accent: #ff7f6a;
+        --accent-ring: #ffab8f;
+        --surface: #fffdfd;
+        --text-dark: #111a2c;
+        --muted: #64748b;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 3rem;
+        background: linear-gradient(165deg, #ebe4f3 0%, var(--surface) 45%, #fdeef5 100%);
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--text-dark);
+      }
+      .hint {
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--nav-bg);
+        margin-bottom: 1rem;
+      }
+      .deck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2rem;
+      }
+      .biz-card {
+        width: 1050px;
+        height: 600px;
+        max-width: 100%;
+        border-radius: 10px;
+        overflow: hidden;
+        box-shadow: 0 28px 70px rgba(63, 31, 82, 0.28);
+        position: relative;
+      }
+      /* ——— Ön yüz ——— */
+      .biz-front {
+        background: linear-gradient(138deg, var(--hero-bg) 0%, var(--nav-bg) 52%, #6b3a82 100%);
+        color: #fff;
+      }
+      .biz-front-inner {
+        position: absolute;
+        inset: 0;
+        padding: 2.65rem 2.85rem;
+        display: grid;
+        grid-template-columns: auto 1fr;
+        gap: 1.85rem;
+        align-items: center;
+      }
+      .biz-front::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 10px;
+        background: linear-gradient(180deg, var(--accent), var(--accent-ring));
+      }
+      .logo-stack {
+        display: flex;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+      }
+      .logo-stack img {
+        width: 76px;
+        height: auto;
+        display: block;
+        filter: drop-shadow(0 6px 18px rgba(0, 0, 0, 0.22));
+      }
+      .brand-org {
+        font-size: 2.05rem;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.08;
+      }
+      .brand-portal {
+        font-size: 1.08rem;
+        font-weight: 600;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.82);
+        margin-top: 0.35rem;
+      }
+      .divider-dot {
+        width: 52px;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), rgba(255, 255, 255, 0.55));
+        margin: 1rem 0 1.05rem;
+      }
+      .hero-line {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: 1.72rem;
+        font-weight: 700;
+        letter-spacing: -0.02em;
+        color: rgba(255, 250, 248, 0.96);
+      }
+      .sub-line {
+        margin: 0.55rem 0 0;
+        font-size: 0.98rem;
+        line-height: 1.55;
+        font-weight: 500;
+        color: rgba(226, 232, 240, 0.88);
+        max-width: 34rem;
+      }
+      .pill-row {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.45rem;
+        margin-top: 1.35rem;
+      }
+      .pill {
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.09em;
+        text-transform: uppercase;
+        padding: 0.34rem 0.62rem;
+        border-radius: 999px;
+        background: rgba(255, 127, 106, 0.28);
+        border: 1px solid rgba(255, 171, 143, 0.42);
+        color: rgba(255, 248, 246, 0.96);
+      }
+      .corner-weef {
+        position: absolute;
+        bottom: 2rem;
+        right: 2.85rem;
+        font-size: 0.62rem;
+        font-weight: 700;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.42);
+      }
+      /* ——— Arka yüz ——— */
+      .biz-back {
+        background: linear-gradient(165deg, #fffefb 0%, var(--surface) 46%, #faf5fb 100%);
+        border: 1px solid rgba(91, 42, 111, 0.14);
+      }
+      .biz-back-inner {
+        position: absolute;
+        inset: 0;
+        padding: 2.35rem 2.85rem;
+        display: flex;
+        flex-direction: column;
+      }
+      .biz-back-strip {
+        height: 8px;
+        width: 120px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, var(--accent), var(--nav-bg));
+        margin-bottom: 1.35rem;
+      }
+      .back-title {
+        margin: 0;
+        font-size: 1.28rem;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: var(--hero-bg);
+      }
+      .back-org {
+        margin: 0.45rem 0 1.25rem;
+        font-size: 0.88rem;
+        font-weight: 600;
+        color: var(--nav-bg);
+      }
+      .back-note {
+        margin: 0;
+        font-size: 0.82rem;
+        line-height: 1.58;
+        color: var(--muted);
+        max-width: 42rem;
+      }
+      .contact-block {
+        margin-top: auto;
+        padding-top: 1.45rem;
+        border-top: 1px solid rgba(91, 42, 111, 0.11);
+      }
+      .name-line {
+        font-size: 1.16rem;
+        font-weight: 800;
+        color: var(--hero-bg);
+      }
+      .mail-line,
+      .tel-line {
+        margin: 0.35rem 0 0;
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--nav-bg);
+      }
+      .tel-line {
+        color: var(--muted);
+        font-weight: 500;
+      }
+      .pill-row-back {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.4rem;
+        margin-top: 1.15rem;
+      }
+      .pill-back {
+        font-size: 0.58rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        padding: 0.28rem 0.55rem;
+        border-radius: 999px;
+        background: rgba(126, 63, 150, 0.12);
+        border: 1px solid rgba(126, 63, 150, 0.22);
+        color: var(--nav-bg);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <p class="hint">Ön yüz · 1050 × 600 px · screenshot</p>
+      <div class="biz-card biz-front" aria-label="Kartvizit ön yüz">
+        <div class="biz-front-inner">
+          <div class="logo-stack">
+            <img src="./brand-logo.png" alt="" width="76" height="76" />
+          </div>
+          <div>
+            <div class="brand-org">EqualDataTürkiye</div>
+            <div class="brand-portal">Gender Data Portal</div>
+            <div class="divider-dot" aria-hidden="true"></div>
+            <p class="hero-line">Shaping an Equal Future</p>
+            <p class="sub-line">
+              Data-driven insights into the 2025 Global Gender Gap — Education, Survival,
+              and Political Empowerment — with maps and national context for Türkiye.
+            </p>
+            <div class="pill-row">
+              <span class="pill">WEF 2025 · GGGR</span>
+              <span class="pill">Explore · Compare · Understand</span>
+            </div>
+          </div>
+        </div>
+        <span class="corner-weef">Portal · EqualDataTürkiye</span>
+      </div>
+
+      <p class="hint">Arka yüz · İsim / iletişim satırlarını düzenleyin</p>
+      <div class="biz-card biz-back" aria-label="Kartvizit arka yüz">
+        <div class="biz-back-inner">
+          <div class="biz-back-strip" aria-hidden="true"></div>
+          <h2 class="back-title">Akademik veri görünümü projesi</h2>
+          <p class="back-org">Ankara Science University · EqualDataTürkiye</p>
+          <p class="back-note">
+            Gender equality indicators compiled from reputable sources (including WEF Global Gender Gap Report 2025)
+            and presented in comparable visuals — feedback welcome via the portal About page.
+          </p>
+          <div class="pill-row-back">
+            <span class="pill-back">Education</span>
+            <span class="pill-back">Health &amp; survival</span>
+            <span class="pill-back">Political empowerment</span>
+          </div>
+          <div class="contact-block">
+            <p class="name-line">İsim Soyisim · Ünvan</p>
+            <p class="mail-line">ornek@kurum.edu.tr</p>
+            <p class="tel-line">+90 · ··· ··· ·· ··</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

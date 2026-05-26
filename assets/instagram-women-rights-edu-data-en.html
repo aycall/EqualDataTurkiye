@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram carousel 4:5 — Women's rights × data (Education · WEF 2025) · EN · 1080×1350</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      EXPORT: Chrome DevTools → Responsive viewport 1080 × 1350 (Instagram feed 4:5).
+      No slide indices on graphics — citations only via .cite-strip (top or bottom).
+
+      Caption idea unchanged — see older comment blocks in repo if needed.
+    -->
+    <style>
+      :root {
+        --purple-deep: #3f1f52;
+        --purple-mid: #5b2a6f;
+        --accent: #ff7f6a;
+        --surface: #fffdfd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 4rem;
+        background: linear-gradient(165deg, #ebe4f3 0%, var(--surface) 42%, #fdeef5 100%);
+        font-family: "Inter", system-ui, sans-serif;
+        color: #111a2c;
+      }
+      .export-note {
+        text-align: center;
+        font-size: 0.9rem;
+        color: var(--purple-mid);
+        max-width: 42rem;
+        margin: 0 auto 1.75rem;
+        line-height: 1.52;
+      }
+      .deck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 2.75rem;
+      }
+      /** Instagram portrait feed · 1080 × 1350 (= 4:5) */
+      .slide {
+        width: 1080px;
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 52px rgba(63, 31, 82, 0.16);
+        position: relative;
+      }
+      .slide-inner {
+        position: absolute;
+        inset: 0;
+        padding: clamp(1.85rem, 4vw, 3rem);
+        display: flex;
+        flex-direction: column;
+      }
+      .slide--deep {
+        background: linear-gradient(145deg, var(--purple-deep) 0%, var(--purple-mid) 55%, #613475 100%);
+        color: #fff;
+      }
+      .slide--light {
+        background: radial-gradient(
+            ellipse 120% 80% at 100% -5%,
+            rgba(255, 127, 106, 0.14),
+            transparent 52%
+          ),
+          linear-gradient(180deg, #fffefb 0%, var(--surface) 50%, #faf5fb 100%);
+        border: 1px solid rgba(91, 42, 111, 0.1);
+      }
+      .cite-strip {
+        font-size: 0.625rem;
+        font-weight: 600;
+        line-height: 1.45;
+        letter-spacing: 0.025em;
+        flex-shrink: 0;
+      }
+      .cite-strip--top {
+        margin-bottom: 1rem;
+        padding-bottom: 0.75rem;
+      }
+      .cite-strip--bottom {
+        margin-top: auto;
+        padding-top: 1rem;
+      }
+      .slide--deep .cite-strip {
+        color: rgba(255, 255, 255, 0.55);
+      }
+      .slide--deep .cite-strip--top {
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .slide--deep .cite-strip--bottom {
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .slide--light .cite-strip {
+        color: rgba(91, 42, 111, 0.62);
+      }
+      .slide--light .cite-strip--top {
+        border-bottom: 1px solid rgba(91, 42, 111, 0.1);
+      }
+      .slide--light .cite-strip--bottom {
+        border-top: 1px solid rgba(91, 42, 111, 0.11);
+      }
+      .grow {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 0;
+      }
+      .eyebrow {
+        font-size: 0.68rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+      }
+      .slide--deep .eyebrow {
+        color: rgba(255, 255, 255, 0.74);
+      }
+      .slide--light .eyebrow {
+        color: var(--purple-mid);
+        opacity: 0.92;
+      }
+      h2.display {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 700;
+        line-height: 1.06;
+        letter-spacing: -0.028em;
+        margin: 0.75rem 0 0;
+        font-size: clamp(2.05rem, 4.8vw, 3.65rem);
+      }
+      .slide--light h2.display {
+        color: var(--purple-deep);
+      }
+      .deck-sub {
+        font-size: clamp(1.02rem, 2vw, 1.52rem);
+        line-height: 1.53;
+        margin-top: 1rem;
+        max-width: 36ch;
+      }
+      .slide--deep .deck-sub {
+        color: rgba(255, 255, 255, 0.92);
+      }
+      .slide--light .deck-sub {
+        color: #334155;
+      }
+      .ribbon {
+        display: inline-flex;
+        margin-top: 1.4rem;
+        padding: 0.36rem 0.85rem;
+        border-radius: 999px;
+        background: rgba(255, 127, 106, 0.95);
+        color: #2d1438;
+        font-size: 0.71rem;
+        font-weight: 800;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+      }
+      .slide--deep .stat-big {
+        color: #fff !important;
+        text-shadow: 0 4px 30px rgba(0, 0, 0, 0.2);
+      }
+      .stat-big {
+        font-size: clamp(4rem, 11vw, 8.25rem);
+        font-weight: 800;
+        color: var(--purple-mid);
+        letter-spacing: -0.04em;
+        line-height: 1;
+      }
+      .stat-label {
+        font-size: clamp(1rem, 2vw, 1.45rem);
+        font-weight: 700;
+        color: var(--purple-deep);
+      }
+      ul.lines {
+        margin: 1.05rem 0 0;
+        padding-left: 1.15rem;
+        font-size: clamp(0.96rem, 1.82vw, 1.38rem);
+        line-height: 1.67;
+        color: #2d3a52;
+      }
+      ul.lines li {
+        margin-bottom: 0.65rem;
+      }
+      ul.lines strong {
+        color: var(--purple-mid);
+      }
+      .map-placeholder {
+        margin-top: 1.1rem;
+        border-radius: 12px;
+        border: 1px dashed rgba(91, 42, 111, 0.22);
+        background: rgba(253, 231, 241, 0.42);
+        padding: 1rem;
+        font-size: 0.84rem;
+        color: var(--purple-mid);
+        font-weight: 600;
+        line-height: 1.45;
+      }
+
+      .slide--deep .stat-label.slide--turkey-label {
+        color: rgba(255, 255, 255, 0.94);
+      }
+      @media (max-width: 1100px) {
+        .slide {
+          width: min(1080px, calc(100vw - 28px));
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <p class="export-note">
+      <strong>4:5 Instagram feed</strong> — Export each slide at <strong>1080×1350 px</strong> (DevTools responsive). No
+      slide numbers; citations in small type top or bottom only.
+    </p>
+
+    <div class="deck">
+      <!-- 1 -->
+      <article class="slide slide--deep">
+        <div class="slide-inner">
+          <p class="cite-strip cite-strip--top">
+            Source framing: methodologies described in<br />
+            World Economic Forum, <em>Global Gender Gap Report 2025</em> · Educational Attainment subindex overview.
+          </p>
+          <div class="grow">
+            <p class="eyebrow">Rights we can prove</p>
+            <h2 class="display">Women's rights deserve data—not noise.</h2>
+            <p class="deck-sub">
+              When enrolment gaps matter, credible indicators and geography make inequalities visible—not debatable
+              anecdotes.
+            </p>
+            <span class="ribbon">Education is power</span>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            EqualDataTürkiye Gender Data Portal — non-official viz layer; cite WEF editions &amp; national statistics in
+            your own republications.
+          </p>
+        </div>
+      </article>
+
+      <!-- 2 -->
+      <article class="slide slide--light">
+        <div class="slide-inner">
+          <p class="cite-strip cite-strip--top">
+            Concept literacy &amp; parity measures — see WEF GGGR (2025) Technical appendix &amp; country tables.</p>
+          <div class="grow">
+            <p class="eyebrow">Lens</p>
+            <h2 class="display">Education is central to dignity &amp; opportunity.</h2>
+            <p class="deck-sub">
+              Literacy and progression through schooling shape labour markets, autonomy, health literacy and long-term
+              equality—for everyone.
+            </p>
+            <ul class="lines">
+              <li>Primary · secondary · <strong>tertiary</strong> pathways</li>
+              <li>Gender parity as a measurable outcome</li>
+              <li>Globally comparable framing per WEF</li>
+            </ul>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            UNESCO UIS / national MoE enrolment literacy series often anchor cross-checks alongside WEF composite
+            subindices.</p>
+        </div>
+      </article>
+
+      <!-- 3 -->
+      <article class="slide slide--light">
+        <div class="slide-inner">
+          <div class="grow">
+            <p class="eyebrow">Indicator</p>
+            <h2 class="display">Educational Attainment — what it measures.</h2>
+            <ul class="lines">
+              <li>
+                WEF <strong>Educational Attainment</strong> subindex scale: 0 = no parity, 1 = full parity — see report
+                text for component definitions.</li>
+              <li><strong>148 economies</strong> in GGGR 2025; literacy &amp; enrolment ladders combined in the metric.</li>
+              <li>Portal choropleth label: “Educational Attainment (2025)” — aligns to WEF-published cells where coded.</li>
+            </ul>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            Primary citation: World Economic Forum (2025), <em>Global Gender Gap Report 2025</em>, downloadable from
+            weforum.org — verify numeric cells before redistribution.</p>
+        </div>
+      </article>
+
+      <!-- 4 Türkiye stat -->
+      <article class="slide slide--deep">
+        <div class="slide-inner">
+          <div class="grow" style="text-align: center; align-items: center">
+            <p class="eyebrow" style="margin-bottom: 0.25rem">Türkiye · portal encoding</p>
+            <div class="stat-big">0.986</div>
+            <p class="deck-sub stat-label slide--turkey-label">Educational Attainment score · 2025 edition context</p>
+            <p class="deck-sub" style="max-width: 30ch">
+              Summarised on EqualDataTürkiye as <strong>very close to full parity</strong> on this subindex —
+              comparator geographies plotted for contrast on the choropleth.
+            </p>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            Figures echo WEF GGGR&nbsp;2025 country table values as implemented in EqualData Türkiye; always confirm against
+            the official WEF data extract before academic citation.</p>
+        </div>
+      </article>
+
+      <!-- 5 map concept -->
+      <article class="slide slide--light">
+        <div class="slide-inner">
+          <div class="grow">
+            <p class="eyebrow">Spatial comparison</p>
+            <h2 class="display">Maps show divergence, not uniformity.</h2>
+            <p class="deck-sub">
+              Comparator cohorts expose where educational gaps remain widest—education is often the doorway to debating
+              other dimensions of parity.
+            </p>
+            <div class="map-placeholder">
+              On the Gender Data Portal: open <strong>Education</strong> → choropleth with legend “Educational
+              Attainment (2025)”. Embed a cropped screenshot here in design tools if replacing this box.
+            </div>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            Map geometry &amp; palette: EqualData Türkiye; underlying scores — WEF (2025) Educational Attainment
+            comparator set as documented on-site.</p>
+        </div>
+      </article>
+
+      <!-- 6 CTA -->
+      <article class="slide slide--deep">
+        <div class="slide-inner">
+          <div class="grow">
+            <h2 class="display">@equaldataturkiye</h2>
+            <p class="deck-sub">
+              Link in bio · Gender Data Portal — dashboards, choropleths &amp; Türkiye-national context panels.
+            </p>
+            <span class="ribbon">Data for equality</span>
+          </div>
+          <p class="cite-strip cite-strip--bottom">
+            Legend scaling on education map follows portal implementation (typically z-min / z-max for comparability);
+            methodological notes on each detail card. EqualData Türkiye — academic dissemination project.</p>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

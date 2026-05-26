@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>EqualData Türkiye — First Instagram Carousel (EN) — Export 1080×1080</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <!--
+      ===================== EXPORT HOW-TO =====================
+      Each yellow box below is one Instagram feed slide (recommended 1080 × 1080 px).
+
+      Option A — Chrome screenshots
+        1. Open this file in Chrome (file:///…/instagram-first-post-slides-en.html).
+        2. Press F12 → Toggle device toolbar (Ctrl+Shift+M).
+        3. Set dimensions to Responsive 1080 × 1080.
+        4. Scroll to slide 1, screenshot. Repeat for slides 2–6.
+
+      Option B — Print to PDF + crop
+        • Use Ctrl+P → Save as PDF, then split square pages if your viewer supports it.
+
+      Brand aligns with Gender Data Portal: purple gradient + coral accent (#ff7f6a).
+
+      ===============================================
+    -->
+    <style>
+      :root {
+        --purple-deep: #3f1f52;
+        --purple-mid: #5b2a6f;
+        --purple-soft: #8b5a9e;
+        --accent: #ff7f6a;
+        --surface: #fffdfd;
+        --text: #111a2c;
+        --muted: rgba(255, 255, 255, 0.88);
+      }
+
+      * {
+        box-sizing: border-box;
+      }
+
+      body {
+        margin: 0;
+        padding: 2rem 1rem 4rem;
+        background: linear-gradient(
+          165deg,
+          #ebe4f3 0%,
+          var(--surface) 42%,
+          #fdeef5 100%
+        );
+        font-family: "Inter", system-ui, sans-serif;
+        color: var(--text);
+      }
+
+      h1.export-title {
+        text-align: center;
+        font-size: 0.95rem;
+        font-weight: 600;
+        color: var(--purple-mid);
+        max-width: 42rem;
+        margin: 0 auto 2rem;
+        line-height: 1.55;
+      }
+
+      .deck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3rem;
+      }
+
+      /** One Instagram square (1080×1080 logical pixels at 100% scale) */
+      .slide {
+        width: 1080px;
+        height: 1080px;
+        max-width: 100%;
+        aspect-ratio: 1 / 1;
+        height: auto;
+        border-radius: 12px;
+        overflow: hidden;
+        box-shadow: 0 24px 60px rgba(63, 31, 82, 0.18);
+        position: relative;
+        flex-shrink: 0;
+      }
+
+      @supports (aspect-ratio: 1 / 1) {
+        .slide {
+          height: auto;
+        }
+      }
+
+      /** When viewport narrower than slide, scale down proportionally via width */
+      @media (max-width: 1100px) {
+        .slide {
+          width: min(1080px, calc(100vw - 32px));
+        }
+      }
+
+      /* --- Slide internals --- */
+      .slide-inner {
+        position: absolute;
+        inset: 0;
+        padding: clamp(2.25rem, 4vw, 3.75rem);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 100%;
+      }
+
+      .slide--cover {
+        background: linear-gradient(
+          145deg,
+          var(--purple-deep) 0%,
+          var(--purple-mid) 52%,
+          #6d3a82 100%
+        );
+        color: #fff;
+      }
+
+      .slide--cover .slide-inner {
+        justify-content: center;
+        text-align: center;
+        gap: 1.5rem;
+      }
+
+      .slide--light {
+        background: radial-gradient(
+            ellipse 120% 90% at 100% -10%,
+            rgba(255, 127, 106, 0.18),
+            transparent 52%
+          ),
+          linear-gradient(180deg, #fffefb 0%, var(--surface) 46%, #faf5fb 100%);
+        border: 1px solid rgba(91, 42, 111, 0.1);
+      }
+
+      .slide--accent-bottom {
+        background: linear-gradient(
+          178deg,
+          #fffefb 0%,
+          var(--surface) 55%,
+          #fdeef5 100%
+        );
+      }
+
+      .eyebrow {
+        font-size: 0.75rem;
+        font-weight: 700;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: rgba(255, 255, 255, 0.75);
+      }
+
+      .slide--light .eyebrow {
+        color: var(--purple-mid);
+        opacity: 0.92;
+      }
+
+      .slide-title-cover {
+        font-family: "Playfair Display", Georgia, serif;
+        font-weight: 700;
+        font-size: clamp(2.8rem, 5.2vw, 4rem);
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin: 0;
+      }
+
+      .slide-sub-cover {
+        font-size: clamp(1.35rem, 2.8vw, 2rem);
+        font-weight: 600;
+        line-height: 1.38;
+        color: var(--muted);
+        margin: 0 auto;
+        max-width: 28ch;
+      }
+
+      .ribbon {
+        align-self: center;
+        padding: 0.45rem 1.15rem;
+        border-radius: 999px;
+        background: rgba(255, 127, 106, 0.95);
+        color: #2d1438;
+        font-size: 0.82rem;
+        font-weight: 700;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .mark {
+        display: flex;
+        align-items: center;
+        gap: 0.55rem;
+        font-weight: 700;
+        font-size: 0.92rem;
+        color: inherit;
+      }
+
+      .mark svg {
+        flex-shrink: 0;
+      }
+
+      .slide-heading {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2rem, 4vw, 3.1rem);
+        font-weight: 700;
+        line-height: 1.14;
+        color: var(--purple-deep);
+        margin: 0 0 1.25rem;
+        letter-spacing: -0.025em;
+      }
+
+      .slide-body {
+        font-size: clamp(1.125rem, 2.05vw, 1.56rem);
+        line-height: 1.62;
+        color: #2a3548;
+        margin: 0;
+        max-width: 36ch;
+      }
+
+      .slide-body strong {
+        color: var(--purple-mid);
+        font-weight: 700;
+      }
+
+      ul.bullets {
+        margin: 0;
+        padding-left: 1.35rem;
+        font-size: clamp(1.05rem, 1.95vw, 1.42rem);
+        line-height: 1.72;
+        color: #334155;
+      }
+
+      ul.bullets li {
+        margin-bottom: 0.65rem;
+      }
+
+      .footer-bar {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 1rem;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(91, 42, 111, 0.12);
+        font-size: 0.92rem;
+        font-weight: 600;
+        color: var(--purple-mid);
+      }
+
+      .slide--cover .footer-bar {
+        border-top-color: rgba(255, 255, 255, 0.18);
+        color: rgba(255, 255, 255, 0.9);
+        padding-top: 0;
+        border-top: none;
+        justify-content: center;
+      }
+
+      .grain {
+        position: absolute;
+        inset: 0;
+        opacity: 0.07;
+        pointer-events: none;
+        background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.72' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='180' height='180' filter='url(%23n)'/%3E%3C/svg%3E");
+        mix-blend-mode: overlay;
+      }
+
+      /** Numbers for ordering in preview */
+      .slide-num {
+        position: absolute;
+        top: 1.75rem;
+        right: 1.75rem;
+        width: 2.65rem;
+        height: 2.65rem;
+        border-radius: 50%;
+        background: rgba(255, 255, 255, 0.18);
+        color: inherit;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: 800;
+        font-size: 1.05rem;
+        border: 1px solid rgba(255, 255, 255, 0.28);
+      }
+
+      .slide--light .slide-num {
+        background: rgba(91, 42, 111, 0.1);
+        color: var(--purple-mid);
+        border-color: rgba(91, 42, 111, 0.15);
+      }
+
+      /** Print: one slide per page (Firefox/Chrome varies) */
+      @media print {
+        body {
+          background: #fff;
+          padding: 0;
+        }
+
+        .export-title {
+          display: none;
+        }
+
+        .slide {
+          page-break-after: always;
+          margin: 0;
+          box-shadow: none;
+          border-radius: 0;
+        }
+
+        .deck {
+          gap: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <h1 class="export-title">
+      First carousel — English visuals (6 slides). Resize browser to ~1080px wide or use
+      DevTools 1080×1080 viewport, then capture each slide.<br /><span style="font-weight: 500"
+        >Suggested posting order: Slide 1 → Slide 6</span
+      >
+    </h1>
+
+    <div class="deck">
+      <!-- 1 Cover -->
+      <article class="slide slide--cover" id="slide-1">
+        <div class="grain" aria-hidden="true"></div>
+        <span class="slide-num" aria-hidden="true">1</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">Launch post · Gender Data Portal</p>
+            <h2 class="slide-title-cover">EqualDataTürkiye</h2>
+            <p class="slide-sub-cover">
+              Making gender equality visible through data — global context, Türkiye in focus.
+            </p>
+            <div style="margin-top: 2rem">
+              <span class="ribbon">Academic · data-first</span>
+            </div>
+          </div>
+          <div class="footer-bar">
+            <span class="mark" style="justify-content: center">
+              <!-- simple symbol ♀ styled -->
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <circle cx="12" cy="7.85" r="4.4" stroke="#ff8f7c" stroke-width="2.2" />
+                <path
+                  d="M12 12.2v9.8M8 17h8"
+                  stroke="#ff8f7c"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                />
+              </svg>
+              Gender Data Portal
+            </span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 2 What -->
+      <article class="slide slide--light slide--accent-bottom" id="slide-2">
+        <span class="slide-num" aria-hidden="true">2</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">What we built</p>
+            <h2 class="slide-heading">One portal, many perspectives</h2>
+            <p class="slide-body">
+              <strong>EqualDataTürkiye</strong> is an academic Gender Data Portal. We compile
+              trusted indicators — education, survival, and political empowerment — and turn
+              them into clear visuals you can explore and compare.
+            </p>
+          </div>
+          <div class="footer-bar"><span>@equaldataturkiye</span><span>WEF-aligned · Türkiye-ready</span></div>
+        </div>
+      </article>
+
+      <!-- 3 Global -->
+      <article class="slide slide--light" id="slide-3">
+        <span class="slide-num" aria-hidden="true">3</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">Global lens</p>
+            <h2 class="slide-heading">WEF Gender Gap framing</h2>
+            <ul class="bullets">
+              <li>Tied to the <strong>World Economic Forum</strong> Global Gender Gap mindset (2025 edition).</li>
+              <li>Comparable choropleths for selected economies — see the geography of gaps at a glance.</li>
+              <li>Dig into <strong>Education</strong>, <strong>Health &amp; Survival</strong>, <strong>Political Empowerment</strong>.</li>
+            </ul>
+          </div>
+          <div class="footer-bar"><span>📊 Charts &amp; maps</span><span>Explore on the portal</span></div>
+        </div>
+      </article>
+
+      <!-- 4 Türkiye -->
+      <article class="slide slide--light slide--accent-bottom" id="slide-4">
+        <span class="slide-num" aria-hidden="true">4</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">National lens</p>
+            <h2 class="slide-heading">Türkiye, in national context</h2>
+            <p class="slide-body">
+              Alongside international comparisons we highlight <strong>Türkiye</strong> — with
+              TÜİK-style contextual blocks (labour participation, timelines, dashboards) where the
+              site presents national statistics beside the gap indices.
+            </p>
+          </div>
+          <div class="footer-bar"><span>🏠 Türkiye</span><span>Credible national sources · clear layout</span></div>
+        </div>
+      </article>
+
+      <!-- 5 Transparency -->
+      <article class="slide slide--light" id="slide-5">
+        <span class="slide-num" aria-hidden="true">5</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">Transparency</p>
+            <h2 class="slide-heading">From dense tables…</h2>
+            <p class="slide-body">
+              …to legible visuals. Sources are flagged on the portal (e.g.&nbsp;<strong>WEF</strong>,
+              national statistics). Built as a&nbsp;<strong>final-year university project</strong> —
+              focused on openness and readability, not rhetoric.
+            </p>
+          </div>
+          <div class="footer-bar">
+            <span>📎 Sources on site</span><span>Open · comparable · honest</span>
+          </div>
+        </div>
+      </article>
+
+      <!-- 6 CTA -->
+      <article class="slide slide--cover" id="slide-6">
+        <div class="grain" aria-hidden="true"></div>
+        <span class="slide-num" aria-hidden="true">6</span>
+        <div class="slide-inner">
+          <div>
+            <p class="eyebrow">Stay with us</p>
+            <h2 class="slide-title-cover" style="font-size: clamp(2.4rem, 4.8vw, 3.6rem); max-width: 18ch">
+              Follow along for graphs, snapshots &amp; highlights
+            </h2>
+            <p class="slide-sub-cover" style="max-width: 30ch">
+              Link in bio to the Gender Data Portal. Questions &amp; feedback welcome in DMs —
+              we’re just getting started.
+            </p>
+          </div>
+          <div class="footer-bar" style="flex-direction: column; gap: 0.75rem; text-align: center">
+            <span class="mark" style="justify-content: center; font-size: 1.05rem">@equaldataturkiye</span>
+            <span class="ribbon" style="align-self: center">EqualDataTürkiye · Gender Data Portal</span>
+          </div>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

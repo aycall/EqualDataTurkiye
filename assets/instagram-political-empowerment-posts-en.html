@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<!--
+  Political Empowerment · TWO Instagram 4×5 cards (screenshot each at 1080×1350).
+  Copy aligns with Gender Data Portal #pol-detail-card + script.js pol choropleth.
+
+  --- Caption 1 (EN) ---
+  WEF Global Gender Gap Report 2025 · Political Empowerment subindex (0–1).
+  Measures: women in parliament, ministerial portfolios, female head-of-state years (past 50 yrs).
+  148 economies · global ~22.9% of political gap closed · subindex ~0.229.
+
+  --- Caption 2 (EN) ---
+  Türkiye in WEF edition: cited lowest Political Empowerment among European comparator economies ~
+  ~5.9% gap closed (~0.059 subindex). On-site choropleth: same 10-country comparator frame — verify exact cells in official country tables.
+
+  EXPORT: Responsive 1080×1350 → snapshot each article.pe-post · no body chrome.
+
+  Suggested PNGs: ig-pol-empowerment-post-1-4x5-en.png · ig-pol-empowerment-post-2-4x5-en.png
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram 4×5 · Political Empowerment (2 posts EN)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --purple-deep: #3f1f52;
+        --purple-mid: #5b2a6f;
+        --purple-soft: #7e3f96;
+        --accent: #ff7f6a;
+        --accent-soft: rgba(255, 127, 106, 0.22);
+        --text-dark: #111a2c;
+        --surface: #fffefd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 3.25rem;
+        background: linear-gradient(165deg, #ebe4f3 0%, var(--surface) 42%, #fdeef5 100%);
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--text-dark);
+      }
+      .deck {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.95rem;
+      }
+      .lab {
+        font-size: 0.72rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--purple-mid);
+        margin: 0;
+      }
+      .pe-post {
+        width: 1080px;
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 52px rgba(63, 31, 82, 0.18);
+        position: relative;
+      }
+      .in {
+        position: absolute;
+        inset: 0;
+        padding: clamp(1.62rem, 3.35vw, 2.62rem);
+        display: flex;
+        flex-direction: column;
+      }
+      .cite {
+        font-size: 0.58rem;
+        font-weight: 600;
+        line-height: 1.42;
+        flex-shrink: 0;
+      }
+      .cite-top {
+        padding-bottom: 0.7rem;
+        margin-bottom: 0.6rem;
+        border-bottom-width: 1px;
+        border-bottom-style: solid;
+      }
+      .cite-bot {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top-width: 1px;
+        border-top-style: solid;
+      }
+      .pe-post--deep {
+        background: linear-gradient(148deg, var(--purple-deep) 0%, var(--purple-mid) 52%, #6b3a82 100%);
+        color: #fff;
+      }
+      .pe-post--deep .cite {
+        color: rgba(255, 255, 255, 0.54);
+      }
+      .pe-post--deep .cite-top {
+        border-bottom-color: rgba(255, 255, 255, 0.14);
+      }
+      .pe-post--deep .cite-bot {
+        border-top-color: rgba(255, 255, 255, 0.14);
+      }
+      .pe-post--light {
+        background: radial-gradient(ellipse 120% 82% at 98% -4%, var(--accent-soft), transparent 50%),
+          linear-gradient(180deg, #fffefb 0%, var(--surface) 48%, #faf5fb 100%);
+        border: 1px solid rgba(91, 42, 111, 0.1);
+      }
+      .pe-post--light .cite {
+        color: rgba(91, 42, 111, 0.56);
+      }
+      .pe-post--light .cite-top {
+        border-bottom-color: rgba(91, 42, 111, 0.1);
+      }
+      .pe-post--light .cite-bot {
+        border-top-color: rgba(91, 42, 111, 0.11);
+      }
+      .mid {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 0;
+        gap: 0.78rem;
+      }
+      .row-title {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: baseline;
+        gap: 0.55rem;
+      }
+      .pill {
+        font-size: 0.62rem;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        opacity: 0.9;
+      }
+      .kbd {
+        display: inline-block;
+        padding: 0.2rem 0.48rem;
+        border-radius: 6px;
+        font-size: 0.605rem;
+        font-weight: 700;
+        letter-spacing: 0.05em;
+      }
+      .pe-post--deep .kbd {
+        background: rgba(255, 255, 255, 0.13);
+        border: 1px solid rgba(255, 255, 255, 0.22);
+      }
+      .pe-post--light .kbd {
+        background: rgba(91, 42, 111, 0.08);
+        border: 1px solid rgba(91, 42, 111, 0.13);
+        color: var(--purple-mid);
+      }
+      h2.stack {
+        margin: 0.15rem 0 0;
+        font-size: clamp(1.45rem, 3.55vw, 2.08rem);
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.05;
+      }
+      .pe-post--deep h2.stack {
+        color: #fff;
+      }
+      .pe-post--light h2.stack {
+        color: var(--purple-deep);
+      }
+      .muted-line {
+        margin: 0;
+        font-size: clamp(0.78rem, 1.68vw, 0.92rem);
+        line-height: 1.52;
+      }
+      .pe-post--deep .muted-line {
+        color: rgba(255, 255, 255, 0.88);
+      }
+      .pe-post--light .muted-line {
+        color: #334155;
+      }
+      .data-grid {
+        display: grid;
+        gap: 0.62rem;
+        margin-top: 0.2rem;
+      }
+      .tile {
+        border-radius: 12px;
+        padding: clamp(0.92rem, 2.4vw, 1.32rem);
+      }
+      .pe-post--deep .tile {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+      }
+      .pe-post--light .tile {
+        background: rgba(255, 255, 255, 0.93);
+        border: 1px solid rgba(91, 42, 111, 0.09);
+        box-shadow: 0 5px 20px rgba(63, 31, 82, 0.07);
+      }
+      .t-lbl {
+        display: block;
+        font-size: 0.665rem;
+        font-weight: 800;
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 0.42rem;
+      }
+      .pe-post--deep .t-lbl {
+        color: rgba(255, 255, 255, 0.66);
+      }
+      .pe-post--light .t-lbl {
+        color: rgba(91, 42, 111, 0.58);
+      }
+      .t-val {
+        font-size: clamp(1.5rem, 3.95vw, 2.08rem);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.03em;
+        line-height: 1.06;
+      }
+      .tiles-2 {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 0.62rem;
+      }
+      .pe-post--deep .t-val {
+        color: #fff;
+      }
+      .accent {
+        color: #ffb5a8;
+      }
+      .pe-post--light .accent {
+        color: var(--accent);
+      }
+      .mono {
+        font-variant-numeric: tabular-nums;
+      }
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 0.42rem;
+        margin-top: 0.52rem;
+      }
+      .tag {
+        font-size: 0.58rem;
+        font-weight: 700;
+        padding: 0.26rem 0.52rem;
+        border-radius: 999px;
+        letter-spacing: 0.04em;
+        text-transform: uppercase;
+      }
+      .pe-post--deep .tag {
+        background: rgba(255, 127, 106, 0.26);
+        border: 1px solid rgba(255, 171, 143, 0.42);
+        color: rgba(255, 250, 248, 0.98);
+      }
+      .pe-post--light .tag {
+        background: rgba(126, 63, 150, 0.1);
+        border: 1px solid rgba(126, 63, 150, 0.2);
+        color: var(--purple-mid);
+      }
+      .mega {
+        margin: 0;
+        font-size: clamp(3.05rem, 8.5vw, 4.95rem);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.04em;
+        line-height: 1;
+        color: var(--purple-deep);
+      }
+      .pct {
+        margin: 0.25rem 0 0;
+        font-size: clamp(2rem, 5.2vw, 2.85rem);
+        font-weight: 800;
+        color: var(--purple-mid);
+        font-variant-numeric: tabular-nums;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck">
+      <p class="lab">Post 1 · What the pillar measures (global benchmark)</p>
+      <article class="pe-post pe-post--deep" aria-label="Political empowerment definition">
+        <div class="in">
+          <header class="cite cite-top">
+            EqualData Türkiye · Political empowerment detail · World Economic Forum, Global Gender Gap Report 2025
+          </header>
+          <div class="mid">
+            <div class="row-title">
+              <span class="pill">Political Empowerment</span>
+              <span class="kbd">subindex · 0–1</span>
+            </div>
+            <h2 class="stack">WEF 2025 pillar</h2>
+            <p class="muted-line">
+              Women’s share in <strong style="opacity: 1">parliament</strong>, as
+              <strong>ministers</strong>, and <strong>years with a female head of state</strong> · past 50 years.
+            </p>
+            <div class="data-grid">
+              <div class="tile">
+                <span class="t-lbl">Economies (edition)</span>
+                <div class="t-val mono">148</div>
+              </div>
+              <div class="tiles-2">
+                <div class="tile">
+                  <span class="t-lbl">Global avg*</span>
+                  <div class="t-val mono">~0.229</div>
+                </div>
+                <div class="tile">
+                  <span class="t-lbl">Gap closed*</span>
+                  <div class="t-val mono">~<span class="accent">22</span>.9%</div>
+                </div>
+              </div>
+              <div class="tile">
+                <span class="t-lbl">Compared with other pillars</span>
+                <p class="muted-line" style="font-size: 0.93rem">
+                  Portal wording: dispersion is <strong style="opacity: 1">very wide across countries</strong>, and this
+                  dimension still lags <strong>education &amp; health</strong>.
+                </p>
+                <div class="tags">
+                  <span class="tag">Wide country spread</span>
+                  <span class="tag">0–1 scale</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="cite cite-bot">
+            *Approximate averages as cited on portal (~22.9% · ~0.229). Confirm wording + cells in official WEF release.
+          </footer>
+        </div>
+      </article>
+
+      <p class="lab">Post 2 · Türkiye (European comparator framing)</p>
+      <article class="pe-post pe-post--light" aria-label="Türkiye political empowerment">
+        <div class="in">
+          <header class="cite cite-top">
+            Same ten-country comparator choropleth on portal · Türkiye score as coded aligns with portal narrative (~0.059).
+          </header>
+          <div class="mid">
+            <div class="row-title">
+              <span class="pill" style="color: var(--purple-soft)">Portal snapshot</span>
+              <span class="kbd">Political Empowerment</span>
+            </div>
+            <h2 class="stack">Türkiye</h2>
+            <p class="muted-line">
+              <strong>WEF 2025</strong>: cited as the <strong>lowest Political Empowerment score among European economies</strong> in
+              this edition.
+            </p>
+            <div class="data-grid">
+              <div class="tile">
+                <span class="t-lbl">Subindex (~)</span>
+                <p class="mega mono accent">0.059</p>
+                <p class="pct mono">≈ <span class="accent">5.9%</span> gap closed</p>
+              </div>
+              <div class="tile">
+                <span class="t-lbl">On-site visualization</span>
+                <p class="muted-line" style="font-size: 0.9rem">
+                  Map legend: “Political Empowerment (2025)” · comparator frame matches script encoding — always reconcile with
+                  <strong>WEF country tables</strong> before academic use.
+                </p>
+                <div class="tags">
+                  <span class="tag">Comparator map</span>
+                  <span class="tag">Official tables · source of truth</span>
+                </div>
+              </div>
+            </div>
+          </div>
+          <footer class="cite cite-bot">
+            Publication: Global Gender Gap Report 2025 (subindex definition, aggregates, exports). Attribution required for redistribution.
+          </footer>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

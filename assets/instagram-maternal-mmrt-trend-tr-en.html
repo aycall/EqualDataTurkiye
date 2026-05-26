@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<!--
+  Maternal mortality — Instagram 4×5 (1080 × 1350 export).
+  Content matches index.html § after "Trend in Türkiye over time" (#detail-health-maternal).
+
+  --- Caption (EN) ---
+  Türkiye · maternal mortality trend (modelled/reported series, per 100,000 live births).
+  Portal snapshot: Early 2000s ~40–50 → 15.4 (2012) → 13.7 (2015) → 21 (2022).
+  2022 can reflect temporary pandemic + reporting-cycle effects · check sources in site footer.
+
+  EXPORT: Responsive 1080×1350 · screenshot article.ig-mmrt-post only.
+
+  PNG name suggestion: ig-maternal-mmrt-trend-tr-4x5-en.png
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram 4×5 · Maternal mortality trend · Türkiye (portal copy)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --purple-deep: #3f1f52;
+        --purple-mid: #5b2a6f;
+        --purple-soft: #7e3f96;
+        --accent: #ff7f6a;
+        --accent-soft: rgba(255, 127, 106, 0.2);
+        --text-dark: #111a2c;
+        --surface: #fffefd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 3rem;
+        background: linear-gradient(165deg, #ebe4f3 0%, var(--surface) 42%, #fdeef5 100%);
+        font-family: Inter, system-ui, sans-serif;
+        color: var(--text-dark);
+      }
+      .export-hint {
+        text-align: center;
+        font-size: 0.72rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--purple-mid);
+        margin-bottom: 0.85rem;
+      }
+      .ig-mmrt-post {
+        width: 1080px;
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+        margin: 0 auto;
+        border-radius: 14px;
+        overflow: hidden;
+        box-shadow: 0 24px 52px rgba(63, 31, 82, 0.18);
+        position: relative;
+        background: radial-gradient(ellipse 120% 75% at 92% -4%, var(--accent-soft), transparent 48%),
+          linear-gradient(180deg, #fffefb 0%, var(--surface) 48%, #faf5fb 100%);
+        border: 1px solid rgba(91, 42, 111, 0.1);
+      }
+      .in {
+        position: absolute;
+        inset: 0;
+        padding: clamp(1.6rem, 3.2vw, 2.55rem);
+        display: flex;
+        flex-direction: column;
+      }
+      .cite {
+        font-size: 0.58rem;
+        font-weight: 600;
+        line-height: 1.42;
+        color: rgba(91, 42, 111, 0.58);
+        padding-bottom: 0.72rem;
+        margin-bottom: 0.62rem;
+        border-bottom: 1px solid rgba(91, 42, 111, 0.1);
+        flex-shrink: 0;
+      }
+      .cite--bottom {
+        margin-top: auto;
+        padding-top: 1rem;
+        padding-bottom: 0;
+        margin-bottom: 0;
+        border-bottom: none;
+        border-top: 1px solid rgba(91, 42, 111, 0.11);
+      }
+      .mid {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        min-height: 0;
+      }
+      .eyebrow {
+        font-size: 0.64rem;
+        font-weight: 800;
+        letter-spacing: 0.2em;
+        text-transform: uppercase;
+        color: var(--purple-soft);
+      }
+      h2 {
+        margin: 0.45rem 0 0;
+        font-size: clamp(1.35rem, 3.25vw, 1.92rem);
+        font-weight: 800;
+        letter-spacing: -0.025em;
+        line-height: 1.1;
+        color: var(--purple-deep);
+      }
+      .metric-hint {
+        margin: 0.55rem 0 1.05rem;
+        font-size: clamp(0.72rem, 1.65vw, 0.82rem);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+        color: #9f1239;
+      }
+      .timeline {
+        position: relative;
+        margin: 0.85rem 0 0.75rem;
+        padding: 0.5rem 0 0.85rem;
+        display: flex;
+        justify-content: space-between;
+        gap: 0.25rem;
+      }
+      .timeline::before {
+        content: "";
+        position: absolute;
+        left: 5%;
+        right: 5%;
+        top: 1.72rem;
+        height: 4px;
+        border-radius: 999px;
+        background: linear-gradient(90deg, #e9d5ff, #9333ea 35%, var(--purple-mid) 68%, rgba(127, 29, 29, 0.35));
+        z-index: 0;
+      }
+      .pt {
+        position: relative;
+        z-index: 1;
+        flex: 1;
+        min-width: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+      .pt-year {
+        font-size: clamp(0.6rem, 1.38vw, 0.72rem);
+        font-weight: 800;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        color: rgba(91, 42, 111, 0.65);
+      }
+      .pt-node {
+        width: 16px;
+        height: 16px;
+        border-radius: 50%;
+        margin: 0.5rem 0 0.4rem;
+        background: linear-gradient(145deg, var(--purple-mid), var(--purple-deep));
+        border: 3px solid #fff;
+        box-shadow: 0 3px 10px rgba(63, 31, 82, 0.22);
+      }
+      .pt:last-child .pt-node {
+        background: linear-gradient(145deg, #991b1b, #dc2626);
+      }
+      .pt-val {
+        margin: 0;
+        font-size: clamp(0.92rem, 2.05vw, 1.08rem);
+        font-weight: 800;
+        font-variant-numeric: tabular-nums;
+        letter-spacing: -0.02em;
+        color: var(--purple-deep);
+        line-height: 1.2;
+      }
+      .pt:last-child .pt-val {
+        color: #991b1b;
+      }
+      .unit {
+        margin: 0.35rem 0 0.65rem;
+        font-size: clamp(0.72rem, 1.55vw, 0.8rem);
+        font-weight: 700;
+        color: var(--purple-mid);
+      }
+      .note {
+        margin: 0;
+        font-size: clamp(0.76rem, 1.65vw, 0.88rem);
+        line-height: 1.52;
+        color: #334155;
+      }
+    </style>
+  </head>
+  <body>
+    <p class="export-hint">Screenshot · 1080 × 1350 · single card below</p>
+    <article class="ig-mmrt-post" aria-label="Maternal mortality trend Türkiye">
+      <div class="in">
+        <header class="cite">
+          EqualData Türkiye · Health → Maternal · narrative as on site (modelled &amp; reported series may differ
+          from single-year national vital stats).
+        </header>
+        <div class="mid">
+          <p class="eyebrow">Maternal mortality</p>
+          <h2>Trend in Türkiye over time</h2>
+          <p class="metric-hint">Deaths per 100,000 live births</p>
+          <div class="timeline" role="group" aria-label="Maternal mortality trend by period">
+            <div class="pt">
+              <span class="pt-year">Early 2000s</span>
+              <span class="pt-node" aria-hidden="true"></span>
+              <p class="pt-val">40 to 50</p>
+            </div>
+            <div class="pt">
+              <span class="pt-year">2012</span>
+              <span class="pt-node" aria-hidden="true"></span>
+              <p class="pt-val">15.4</p>
+            </div>
+            <div class="pt">
+              <span class="pt-year">2015</span>
+              <span class="pt-node" aria-hidden="true"></span>
+              <p class="pt-val">13.7</p>
+            </div>
+            <div class="pt">
+              <span class="pt-year">2022</span>
+              <span class="pt-node" aria-hidden="true"></span>
+              <p class="pt-val">21</p>
+            </div>
+          </div>
+          <p class="unit">Timeline values are per 100,000 live births.</p>
+          <p class="note">
+            The 2022 reading can show a temporary rise tied to the pandemic and reporting cycles; subsequent years
+            point downward again in official series.
+          </p>
+        </div>
+        <footer class="cite cite--bottom">
+          Primary trail on portal: World Bank SH.STA.MMRT (see Knowledge Academy references).
+        </footer>
+      </div>
+    </article>
+  </body>
+</html>

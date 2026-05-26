@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<!--
+  TWO separate Instagram-ready graphics (Portrait 4:5 — screenshot at 1080×1350).
+  Copy aligns with about.html Vision / Mission panels + intro framing.
+
+  --- POST 1 caption (Instagram, English, suggested) ---
+  🎯 Our vision — EqualDataTürkiye
+  A future where gender equality can be read through transparent, data-driven analyses — with balanced stakes in education, healthcare and decisions that shape societies.
+  From our About page · link in bio
+  #genderequality #dataviz #women #vision #equaldataturkiye
+
+  --- POST 2 caption ---
+  🚀 Our mission — EqualDataTürkiye
+  We measure inequality using credible national & international sources, then turn complexity into visuals you can compare and act on.
+  About · Gender Data Portal · @equaldataturkiye
+
+  EXPORT: DevTools Responsive 1080 × 1350 → capture each .ig-post-vertical card (full bleed).
+-->
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Instagram 4×5 · Vision Post + Mission Post (EN)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Playfair+Display:wght@600;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --purple-deep: #3f1f52;
+        --purple-mid: #5b2a6f;
+        --accent: #ff7f6a;
+        --surface: #fffdfd;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        padding: 2rem 1rem 3.5rem;
+        background: #e8e0ef;
+        font-family: Inter, system-ui, sans-serif;
+      }
+      .lab {
+        text-align: center;
+        font-size: 0.78rem;
+        font-weight: 800;
+        letter-spacing: 0.28em;
+        text-transform: uppercase;
+        color: var(--purple-mid);
+        margin: 2.5rem 0 0.85rem;
+      }
+      .lab:first-child {
+        margin-top: 0;
+      }
+      .deck-wide {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 0.85rem;
+      }
+      /** 4 : 5 */
+      .ig-post-vertical {
+        width: 1080px;
+        max-width: 100%;
+        aspect-ratio: 4 / 5;
+        border-radius: 16px;
+        overflow: hidden;
+        box-shadow: 0 26px 60px rgba(63, 31, 82, 0.2);
+        position: relative;
+      }
+      .in {
+        position: absolute;
+        inset: 0;
+        padding: clamp(1.85rem, 3.8vw, 2.85rem);
+        display: flex;
+        flex-direction: column;
+      }
+      .deep {
+        background: linear-gradient(
+          152deg,
+          var(--purple-deep) 0%,
+          var(--purple-mid) 48%,
+          #713d88 100%
+        );
+        color: #fff;
+      }
+      .light {
+        background: radial-gradient(
+            ellipse 100% 70% at 100% -8%,
+            rgba(255, 127, 106, 0.16),
+            transparent 54%
+          ),
+          linear-gradient(185deg, #fffefb 0%, var(--surface) 55%, #f8f1fa 100%);
+        border: 1px solid rgba(91, 42, 111, 0.11);
+        color: var(--purple-deep);
+      }
+      .cite-t,
+      .cite-b {
+        font-size: 0.605rem;
+        font-weight: 600;
+        line-height: 1.48;
+      }
+      .deep .cite-t,
+      .deep .cite-b {
+        color: rgba(255, 255, 255, 0.52);
+      }
+      .cite-t {
+        padding-bottom: 0.72rem;
+        margin-bottom: 0.65rem;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .deep .cite-t {
+        border-bottom-color: rgba(255, 255, 255, 0.12);
+      }
+      .cite-b {
+        margin-top: auto;
+        padding-top: 1rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.12);
+      }
+      .light .cite-t {
+        color: rgba(91, 42, 111, 0.55);
+        border-bottom-color: rgba(91, 42, 111, 0.1);
+      }
+      .light .cite-b {
+        color: rgba(91, 42, 111, 0.55);
+        border-top-color: rgba(91, 42, 111, 0.1);
+      }
+      .mid {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 0.85rem;
+        min-height: 0;
+      }
+      .eyebrow {
+        font-size: 0.72rem;
+        font-weight: 900;
+        letter-spacing: 0.24em;
+        text-transform: uppercase;
+        opacity: 0.75;
+      }
+      .deep .eyebrow {
+        color: #f5e9ff;
+      }
+      .light .eyebrow {
+        color: var(--purple-mid);
+      }
+      h2.kicker-brand {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(1.45rem, 3.8vw, 2.05rem);
+        font-weight: 700;
+        margin: 0;
+        letter-spacing: -0.02em;
+      }
+      .light h2.kicker-brand {
+        color: var(--purple-deep);
+      }
+      h3.block-title {
+        font-family: "Playfair Display", Georgia, serif;
+        font-size: clamp(2rem, 4.9vw, 3.05rem);
+        font-weight: 700;
+        line-height: 1.06;
+        margin: 0.35rem 0 0;
+        letter-spacing: -0.035em;
+      }
+      .light h3.block-title {
+        color: var(--purple-deep);
+      }
+      .body-text {
+        font-size: clamp(1rem, 2.05vw, 1.38rem);
+        line-height: 1.53;
+      }
+      .deep .body-text {
+        color: rgba(255, 255, 255, 0.95);
+      }
+      .light .body-text {
+        color: #334155;
+      }
+      .pill {
+        display: inline-flex;
+        align-self: flex-start;
+        margin-top: 0.85rem;
+        padding: 0.35rem 0.82rem;
+        border-radius: 999px;
+        font-size: 0.69rem;
+        font-weight: 900;
+        letter-spacing: 0.07em;
+        text-transform: uppercase;
+        background: rgba(255, 127, 106, 0.95);
+        color: #2d1438;
+      }
+      .light .pill {
+        background: rgba(91, 42, 111, 0.12);
+        color: var(--purple-mid);
+        border: 1px solid rgba(91, 42, 111, 0.18);
+      }
+      .rule-spacer {
+        height: 0.15rem;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="deck-wide">
+      <p class="lab">Instagram post · 1 of 2 — Vision (4:5 vertical)</p>
+      <article class="ig-post-vertical deep" id="post-vision" aria-label="Vision post">
+        <div class="in">
+          <header class="cite-t">
+            From EqualDataTürkiye About — academic Gender Data Portal (final-year project at Ankara Science University — as stated on site).
+          </header>
+          <div class="mid">
+            <p class="eyebrow">Vision</p>
+            <h2 class="kicker-brand">EqualDataTürkiye</h2>
+            <h3 class="block-title">The future we're building</h3>
+            <p class="body-text">
+              To create a future where gender equality can be monitored through data-driven, transparent analyses, and
+              where balanced representation is ensured in education, healthcare and decision-making processes across all
+              societies.
+            </p>
+          </div>
+          <footer class="cite-b">
+            Platform context: highlighting global &amp; national equality through indicators in education, health &amp;
+            political participation · simple, comparable layout.
+          </footer>
+        </div>
+      </article>
+
+      <p class="lab">Instagram post · 2 of 2 — Mission (4:5 vertical)</p>
+      <article class="ig-post-vertical light" id="post-mission" aria-label="Mission post">
+        <div class="in">
+          <header class="cite-t">
+            EqualDataTürkiye — objective stated on About: accessible visualisations &amp; cross-country awareness.
+          </header>
+          <div class="mid">
+            <p class="eyebrow">Mission</p>
+            <h2 class="kicker-brand">Gender Data Portal</h2>
+            <h3 class="block-title">How we work</h3>
+            <p class="body-text">
+              To make gender inequality measurable by utilising reliable national and international data sources; to raise
+              awareness and contribute to evidence-based decision-making processes by presenting this data through clear,
+              comparable and interactive visualisations.
+            </p>
+            <span class="pill">Link in bio · @equaldataturkiye</span>
+          </div>
+          <footer class="cite-b">
+            Sources: cite original publishers (national statistics, WEF, etc.) when sharing figures beyond this card.
+          </footer>
+        </div>
+      </article>
+    </div>
+  </body>
+</html>

@@ -1,0 +1,775 @@
+<!DOCTYPE html>
+
+<!--
+
+  Health & Survival · TWO Instagram 4×5 graphics — data-focused, EqualData Türkiye palette.
+
+  Screenshot each .hs-post at 1080×1350 (Chrome responsive).
+
+
+
+  --- POST 1 caption (EN) ---
+
+  WEF Global Gender Gap Report 2025 · Health & Survival subindex (0–1).
+
+  Portal figures: 148 economies · global avg ~0.962 (~96.2%) · two indicators: sex ratio at birth + women/men healthy life expectancy.
+
+
+
+  --- POST 2 caption ---
+
+  Country scores cited on portal roughly span 0.934 → 1.000 · Türkiye (comparator set as coded) 0.968 — confirm against WEF country tables.
+
+
+
+  #EqualDataCaption #genderdata #WEF2025
+
+-->
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Instagram 4×5 · Health &amp; Survival — data tiles (EN)</title>
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+
+    <link
+
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@500;600;700;800&display=swap"
+
+      rel="stylesheet"
+
+    />
+
+    <style>
+
+      :root {
+
+        --purple-deep: #3f1f52;
+
+        --purple-mid: #5b2a6f;
+
+        --purple-soft: #7e3f96;
+
+        --accent: #ff7f6a;
+
+        --accent-muted: rgba(255, 127, 106, 0.22);
+
+        --text-dark: #111a2c;
+
+        --surface: #fffefd;
+
+      }
+
+      * {
+
+        box-sizing: border-box;
+
+      }
+
+      body {
+
+        margin: 0;
+
+        padding: 2rem 1rem 4rem;
+
+        background: linear-gradient(165deg, #ebe4f3 0%, var(--surface) 42%, #fdeef5 100%);
+
+        font-family: Inter, system-ui, sans-serif;
+
+        color: var(--text-dark);
+
+      }
+
+      .lab {
+
+        text-align: center;
+
+        font-size: 0.72rem;
+
+        font-weight: 800;
+
+        letter-spacing: 0.2em;
+
+        text-transform: uppercase;
+
+        color: var(--purple-mid);
+
+        margin: 2rem 0 0.75rem;
+
+      }
+
+      .lab:first-child {
+
+        margin-top: 0;
+
+      }
+
+      .deck-wide {
+
+        display: flex;
+
+        flex-direction: column;
+
+        align-items: center;
+
+        gap: 0.85rem;
+
+      }
+
+      .hs-post {
+
+        width: 1080px;
+
+        max-width: 100%;
+
+        aspect-ratio: 4 / 5;
+
+        border-radius: 14px;
+
+        overflow: hidden;
+
+        box-shadow: 0 24px 52px rgba(63, 31, 82, 0.18);
+
+        position: relative;
+
+      }
+
+      .in {
+
+        position: absolute;
+
+        inset: 0;
+
+        padding: clamp(1.65rem, 3.4vw, 2.65rem);
+
+        display: flex;
+
+        flex-direction: column;
+
+      }
+
+      .cite {
+
+        font-size: 0.58rem;
+
+        font-weight: 600;
+
+        line-height: 1.42;
+
+        flex-shrink: 0;
+
+      }
+
+      .cite--top {
+
+        padding-bottom: 0.7rem;
+
+        margin-bottom: 0.65rem;
+
+      }
+
+      .cite--bottom {
+
+        margin-top: auto;
+
+        padding-top: 1rem;
+
+      }
+
+      /* Post 1 — deep */
+
+      .hs-post--deep {
+
+        background: linear-gradient(148deg, var(--purple-deep) 0%, var(--purple-mid) 52%, #6b3a82 100%);
+
+        color: #fff;
+
+      }
+
+      .hs-post--deep .cite {
+
+        color: rgba(255, 255, 255, 0.54);
+
+      }
+
+      .hs-post--deep .cite--top {
+
+        border-bottom: 1px solid rgba(255, 255, 255, 0.14);
+
+      }
+
+      .hs-post--deep .cite--bottom {
+
+        border-top: 1px solid rgba(255, 255, 255, 0.14);
+
+      }
+
+      /* Post 2 — light */
+
+      .hs-post--light {
+
+        background: radial-gradient(ellipse 120% 82% at 100% -6%, var(--accent-muted), transparent 50%),
+
+          linear-gradient(180deg, #fffefb 0%, var(--surface) 48%, #faf5fb 100%);
+
+        border: 1px solid rgba(91, 42, 111, 0.1);
+
+      }
+
+      .hs-post--light .cite {
+
+        color: rgba(91, 42, 111, 0.58);
+
+      }
+
+      .hs-post--light .cite--top {
+
+        border-bottom: 1px solid rgba(91, 42, 111, 0.1);
+
+      }
+
+      .hs-post--light .cite--bottom {
+
+        border-top: 1px solid rgba(91, 42, 111, 0.11);
+
+      }
+
+      .mid {
+
+        flex: 1;
+
+        display: flex;
+
+        flex-direction: column;
+
+        justify-content: center;
+
+        min-height: 0;
+
+        gap: 1rem;
+
+      }
+
+      .pill-title {
+
+        display: inline-block;
+
+        font-size: 0.62rem;
+
+        font-weight: 800;
+
+        letter-spacing: 0.2em;
+
+        text-transform: uppercase;
+
+        color: rgba(255, 255, 255, 0.86);
+
+      }
+
+      .hs-post--light .pill-title {
+
+        color: var(--purple-soft);
+
+      }
+
+      .kbd {
+
+        display: inline-block;
+
+        padding: 0.2rem 0.52rem;
+
+        border-radius: 6px;
+
+        font-size: 0.62rem;
+
+        font-weight: 700;
+
+        letter-spacing: 0.06em;
+
+        background: rgba(255, 255, 255, 0.12);
+
+        border: 1px solid rgba(255, 255, 255, 0.2);
+
+        color: rgba(255, 255, 255, 0.95);
+
+      }
+
+      .hs-post--light .kbd {
+
+        background: rgba(91, 42, 111, 0.08);
+
+        border-color: rgba(91, 42, 111, 0.14);
+
+        color: var(--purple-mid);
+
+      }
+
+      .data-grid {
+
+        display: grid;
+
+        gap: 0.65rem;
+
+        margin-top: 0.35rem;
+
+      }
+
+      .tile {
+
+        border-radius: 12px;
+
+        padding: clamp(1rem, 2.8vw, 1.35rem) clamp(1.1rem, 2.5vw, 1.35rem);
+
+        display: grid;
+
+        grid-template-columns: 1fr auto;
+
+        gap: 0.35rem 1rem;
+
+        align-items: baseline;
+
+      }
+
+      .hs-post--deep .tile {
+
+        background: rgba(255, 255, 255, 0.08);
+
+        border: 1px solid rgba(255, 255, 255, 0.14);
+
+      }
+
+      .hs-post--light .tile {
+
+        background: rgba(255, 255, 255, 0.92);
+
+        border: 1px solid rgba(91, 42, 111, 0.1);
+
+        box-shadow: 0 4px 18px rgba(63, 31, 82, 0.06);
+
+      }
+
+      .tile-label {
+
+        font-size: clamp(0.68rem, 1.55vw, 0.76rem);
+
+        font-weight: 700;
+
+        letter-spacing: 0.08em;
+
+        text-transform: uppercase;
+
+        opacity: 0.88;
+
+      }
+
+      .hs-post--deep .tile-label {
+
+        color: rgba(255, 255, 255, 0.72);
+
+      }
+
+      .hs-post--light .tile-label {
+
+        color: rgba(91, 42, 111, 0.65);
+
+      }
+
+      .tile-value {
+
+        grid-column: 1 / -1;
+
+        font-size: clamp(1.55rem, 4vw, 2rem);
+
+        font-weight: 800;
+
+        letter-spacing: -0.025em;
+
+        line-height: 1.08;
+
+      }
+
+      .hs-post--deep .tile-value {
+
+        color: #fff;
+
+      }
+
+      .mono-num {
+
+        font-variant-numeric: tabular-nums;
+
+      }
+
+      .accent-char {
+
+        color: var(--accent);
+
+      }
+
+      .hs-post--deep .accent-char {
+
+        color: #ffb5a8;
+
+      }
+
+      .tiles-row {
+
+        display: grid;
+
+        grid-template-columns: 1fr 1fr;
+
+        gap: 0.65rem;
+
+      }
+
+      .tile--span {
+
+        grid-column: 1 / -1;
+
+      }
+
+      .indicator-list {
+
+        display: flex;
+
+        flex-wrap: wrap;
+
+        gap: 0.45rem;
+
+        margin-top: 0.55rem;
+
+      }
+
+      .tag {
+
+        font-size: 0.605rem;
+
+        font-weight: 700;
+
+        padding: 0.28rem 0.55rem;
+
+        border-radius: 999px;
+
+        letter-spacing: 0.04em;
+
+        text-transform: uppercase;
+
+      }
+
+      .hs-post--deep .tag {
+
+        background: rgba(255, 127, 106, 0.25);
+
+        border: 1px solid rgba(255, 171, 143, 0.45);
+
+        color: rgba(255, 250, 248, 0.98);
+
+      }
+
+      .hs-post--light .tag {
+
+        background: rgba(126, 63, 150, 0.1);
+
+        border: 1px solid rgba(126, 63, 150, 0.22);
+
+        color: var(--purple-mid);
+
+      }
+
+      /* Range ruler — post 2 */
+
+      .ruler-wrap {
+
+        margin-top: 0.85rem;
+
+      }
+
+      .ruler-label-row {
+
+        display: flex;
+
+        justify-content: space-between;
+
+        font-size: clamp(0.68rem, 1.55vw, 0.74rem);
+
+        font-weight: 700;
+
+        color: rgba(91, 42, 111, 0.55);
+
+        margin-bottom: 0.42rem;
+
+        font-variant-numeric: tabular-nums;
+
+      }
+
+      .track {
+
+        height: 14px;
+
+        border-radius: 999px;
+
+        background: linear-gradient(
+
+          90deg,
+
+          rgba(126, 63, 150, 0.35) 0%,
+
+          rgba(126, 63, 150, 0.12) 45%,
+
+          rgba(255, 127, 106, 0.25) 100%
+
+        );
+
+        border: 1px solid rgba(91, 42, 111, 0.12);
+
+        position: relative;
+
+      }
+
+      .marker {
+
+        position: absolute;
+
+        top: 50%;
+
+        transform: translate(-50%, -50%);
+
+        /* (0.968 - 0.934) / (1 - 0.934) */
+
+        left: calc(100% * 34 / 66);
+
+        width: 14px;
+
+        height: 14px;
+
+        border-radius: 50%;
+
+        background: var(--accent);
+
+        border: 2px solid #fff;
+
+        box-shadow: 0 2px 8px rgba(63, 31, 82, 0.25);
+
+      }
+
+      .marker-cap {
+
+        text-align: center;
+
+        margin-top: 0.55rem;
+
+        font-size: clamp(1.95rem, 5vw, 2.85rem);
+
+        font-weight: 800;
+
+        letter-spacing: -0.03em;
+
+        font-variant-numeric: tabular-nums;
+
+        color: var(--purple-deep);
+
+      }
+
+      .marker-sub {
+
+        text-align: center;
+
+        font-size: clamp(0.72rem, 1.5vw, 0.82rem);
+
+        font-weight: 700;
+
+        text-transform: uppercase;
+
+        letter-spacing: 0.12em;
+
+        color: rgba(91, 42, 111, 0.55);
+
+        margin-top: 0.2rem;
+
+      }
+
+    </style>
+
+  </head>
+
+  <body>
+
+    <div class="deck-wide">
+
+      <p class="lab">Post 1 · Data sheet</p>
+
+      <article class="hs-post hs-post--deep" aria-label="Health and survival data">
+
+        <div class="in">
+
+          <header class="cite cite--top">
+
+            Source: Gender Data Portal copy · World Economic Forum, Global Gender Gap Report 2025
+
+          </header>
+
+          <div class="mid">
+
+            <div>
+
+              <span class="pill-title">Health &amp; survival</span>
+
+              <span class="kbd" style="margin-left: 0.55rem">subindex · 0–1</span>
+
+            </div>
+
+            <div class="data-grid">
+
+              <div class="tile">
+
+                <span class="tile-label">Economies (edition)</span>
+
+                <span class="tile-value mono-num"><span class="accent-char">148</span></span>
+
+              </div>
+
+              <div class="tiles-row">
+
+                <div class="tile">
+
+                  <span class="tile-label">Global avg</span>
+
+                  <span class="tile-value mono-num">0.962</span>
+
+                </div>
+
+                <div class="tile">
+
+                  <span class="tile-label">Gap closed*</span>
+
+                  <span class="tile-value mono-num">96.2<span class="accent-char">%</span></span>
+
+                </div>
+
+              </div>
+
+              <div class="tile tile--span">
+
+                <span class="tile-label">Indicators (WEF definition)</span>
+
+                <span class="tile-value mono-num" style="font-size: clamp(1.05rem, 2.35vw, 1.32rem); line-height: 1.38"
+
+                  >Sex ratio at birth<br />Healthy life expectancy · female / male</span
+
+                >
+
+                <div class="indicator-list">
+
+                  <span class="tag">2 components</span>
+
+                  <span class="tag">Comparable cross-country</span>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <footer class="cite cite--bottom">
+
+            *Portal wording: proportion of gender gap closed on this pillar (~96.2%) · numeric score 0.962.
+
+          </footer>
+
+        </div>
+
+      </article>
+
+
+
+      <p class="lab">Post 2 · Range &amp; Türkiye value</p>
+
+      <article class="hs-post hs-post--light" aria-label="Health comparator range">
+
+        <div class="in">
+
+          <header class="cite cite--top">
+
+            Country-level scores on portal choropleth: same WEF 2025 Health &amp; Survival subindex · verify tables.
+
+          </header>
+
+          <div class="mid">
+
+            <div>
+
+              <span class="pill-title">Comparator band</span>
+
+              <span class="kbd" style="margin-left: 0.55rem">portal narrative</span>
+
+            </div>
+
+            <div class="data-grid">
+
+              <div class="tile">
+
+                <span class="tile-label">Approximate score span</span>
+
+                <span class="tile-value mono-num" style="color: var(--purple-deep)">
+
+                  <span style="opacity: 0.75">0.934</span>
+
+                  <span style="opacity: 0.35">&nbsp;·&nbsp;</span>
+
+                  <span>1.000</span>
+
+                </span>
+
+              </div>
+
+              <div class="tile tile--span ruler-wrap">
+
+                <span class="tile-label">Türkiye — comparator cohort (as coded on site)</span>
+
+                <div class="ruler-label-row">
+
+                  <span>0.934</span>
+
+                  <span>1.000</span>
+
+                </div>
+
+                <div class="track" role="presentation" aria-hidden="true"><span class="marker"></span></div>
+
+                <p class="marker-cap mono-num">0.968</p>
+
+                <p class="marker-sub">Plotted position on cited range</p>
+
+              </div>
+
+            </div>
+
+          </div>
+
+          <footer class="cite cite--bottom">
+
+            Map title on portal: Health &amp; Survival (2025) · redistribution with WEF attribution.
+
+          </footer>
+
+        </div>
+
+      </article>
+
+    </div>
+
+  </body>
+
+</html>
+
+

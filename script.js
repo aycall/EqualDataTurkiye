@@ -163,20 +163,6 @@ const COMPARATOR_MAP_LOCATIONS = [
   "Chad",
 ];
 
-/** Lon/lat view boxes for click‑to‑zoom (country names aligned with Plotly `locationmode: "country names"`). */
-const COMPARATOR_MAP_ZOOM = {
-  Turkey: { lon: [25, 46], lat: [35.8, 42.5] },
-  Germany: { lon: [5, 16], lat: [47, 55.5] },
-  France: { lon: [-5.5, 10], lat: [41, 51.5] },
-  "United States": { lon: [-126, -65], lat: [24, 50] },
-  India: { lon: [68, 98], lat: [6, 37.5] },
-  China: { lon: [73, 135], lat: [18, 54] },
-  Brazil: { lon: [-74, -34], lat: [-34, 6] },
-  Angola: { lon: [11, 24.5], lat: [-18.5, -4] },
-  Mali: { lon: [-12.5, 5], lat: [10, 26] },
-  Chad: { lon: [13.5, 24], lat: [7.5, 24] },
-};
-
 /** Global view latitude span: trims polar “empty” sea (similar to atlas / news dashboards). */
 const WORLD_MAP_LAT_VIEW = [-50, 82];
 
@@ -186,113 +172,59 @@ const WORLD_MAP_PROJECTION = {
   rotation: { lon: 10, lat: 0 },
 };
 
-function comparatorMapLonLat(zoomCountry) {
-  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? COMPARATOR_MAP_ZOOM[zoomCountry] : null;
-  if (!z) {
-    return {
-      projection: WORLD_MAP_PROJECTION,
-      lonaxis: { range: [-180, 180], showgrid: false, fixedrange: true },
-      lataxis: { range: WORLD_MAP_LAT_VIEW, showgrid: false, fixedrange: true },
-    };
-  }
+function comparatorMapLonLat() {
   return {
     projection: WORLD_MAP_PROJECTION,
-    lonaxis: { range: z.lon, showgrid: false, fixedrange: true },
-    lataxis: { range: z.lat, showgrid: false, fixedrange: true },
+    lonaxis: { range: [-180, 180], showgrid: false, fixedrange: true },
+    lataxis: { range: WORLD_MAP_LAT_VIEW, showgrid: false, fixedrange: true },
   };
 }
 
-function comparatorMapClickLocation(pt) {
-  if (!pt) return null;
-  if (typeof pt.location === "string" && COMPARATOR_MAP_ZOOM[pt.location]) return pt.location;
-  if (typeof pt.text === "string" && COMPARATOR_MAP_ZOOM[pt.text]) return pt.text;
-  if (Number.isInteger(pt.pointNumber)) {
-    const name = COMPARATOR_MAP_LOCATIONS[pt.pointNumber];
-    if (name && COMPARATOR_MAP_ZOOM[name]) return name;
-  }
-  return null;
-}
-
-/** Relayout patches after zoom toggle (flattened Plotly geo keys). */
-function getComparatorMapRelayoutGeoPatch(zoomCountry) {
-  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? COMPARATOR_MAP_ZOOM[zoomCountry] : null;
-  if (!z) {
-    return {
-      "geo.projection.type": "natural earth",
-      "geo.projection.rotation.lon": 10,
-      "geo.projection.rotation.lat": 0,
-      "geo.lonaxis.range": [-180, 180],
-      "geo.lataxis.range": WORLD_MAP_LAT_VIEW,
-      "geo.lonaxis.fixedrange": true,
-      "geo.lataxis.fixedrange": true,
-      "geo.showcoastlines": false,
-      "geo.coastlinewidth": 0,
-    };
-  }
-  return {
-    "geo.projection.type": "natural earth",
-    "geo.projection.rotation.lon": 10,
-    "geo.projection.rotation.lat": 0,
-    "geo.lonaxis.range": z.lon,
-    "geo.lataxis.range": z.lat,
-    "geo.lonaxis.fixedrange": true,
-    "geo.lataxis.fixedrange": true,
-    "geo.showcoastlines": true,
-    "geo.coastlinewidth": 0.35,
-  };
-}
-
-function makeEduGeo(zoomCountry) {
-  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
-  const coastal = Boolean(z);
+function makeEduGeo() {
   return {
     showframe: false,
-    showcoastlines: coastal,
+    showcoastlines: false,
     coastlinecolor: "rgba(106, 15, 60, 0.26)",
-    coastlinewidth: coastal ? 0.35 : 0,
+    coastlinewidth: 0,
     bgcolor: "rgba(0,0,0,0)",
     landcolor: "rgba(253, 231, 241, 0.52)",
     oceancolor: "rgba(106, 15, 60, 0.06)",
     showocean: true,
     lakecolor: "rgba(106, 15, 60, 0.06)",
     showlakes: true,
-    ...comparatorMapLonLat(z),
+    ...comparatorMapLonLat(),
   };
 }
 
-function makeHealthGeo(zoomCountry) {
-  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
-  const coastal = Boolean(z);
+function makeHealthGeo() {
   return {
     showframe: false,
-    showcoastlines: coastal,
+    showcoastlines: false,
     coastlinecolor: "rgba(99, 102, 241, 0.42)",
-    coastlinewidth: coastal ? 0.35 : 0,
+    coastlinewidth: 0,
     bgcolor: "rgba(0,0,0,0)",
     landcolor: "rgba(245, 243, 255, 0.6)",
     oceancolor: "rgba(49, 46, 129, 0.07)",
     showocean: true,
     lakecolor: "rgba(49, 46, 129, 0.07)",
     showlakes: true,
-    ...comparatorMapLonLat(z),
+    ...comparatorMapLonLat(),
   };
 }
 
-function makePolGeo(zoomCountry) {
-  const z = zoomCountry && COMPARATOR_MAP_ZOOM[zoomCountry] ? zoomCountry : null;
-  const coastal = Boolean(z);
+function makePolGeo() {
   return {
     showframe: false,
-    showcoastlines: coastal,
+    showcoastlines: false,
     coastlinecolor: "rgba(154, 74, 110, 0.42)",
-    coastlinewidth: coastal ? 0.35 : 0,
+    coastlinewidth: 0,
     bgcolor: "rgba(0,0,0,0)",
     landcolor: "rgba(255, 245, 240, 0.48)",
     oceancolor: "rgba(76, 31, 61, 0.06)",
     showocean: true,
     lakecolor: "rgba(76, 31, 61, 0.06)",
     showlakes: true,
-    ...comparatorMapLonLat(z),
+    ...comparatorMapLonLat(),
   };
 }
 
@@ -300,53 +232,8 @@ const eduToggle = document.querySelector(".card-toggle[data-open-edu='true']");
 const eduAnchor = document.getElementById("edu-detail-anchor");
 let eduMapRendered = false;
 let eduMapEl = null;
-/** @type {string | null} */
-let eduMapZoomedCountry = null;
-let eduMapClickBound = false;
 let polLaborRendered = false;
 let polLaborChartEl = null;
-
-function bindEduMapClick() {
-  if (!eduMapEl || eduMapClickBound || !window.Plotly) return;
-  if (typeof eduMapEl.on !== "function") return;
-  eduMapClickBound = true;
-  eduMapEl.on("plotly_click", (ev) => {
-    if (!eduMapRendered || !window.Plotly || !eduMapEl) return;
-    const loc = comparatorMapClickLocation(ev.points?.[0]);
-    if (!loc) return;
-    eduMapZoomedCountry = eduMapZoomedCountry === loc ? null : loc;
-    window.Plotly.relayout(eduMapEl, getComparatorMapRelayoutGeoPatch(eduMapZoomedCountry));
-    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(eduMapEl));
-  });
-}
-
-function bindHealthMapClick() {
-  if (!healthMapEl || healthMapClickBound || !window.Plotly) return;
-  if (typeof healthMapEl.on !== "function") return;
-  healthMapClickBound = true;
-  healthMapEl.on("plotly_click", (ev) => {
-    if (!healthMapRendered || !window.Plotly || !healthMapEl) return;
-    const loc = comparatorMapClickLocation(ev.points?.[0]);
-    if (!loc) return;
-    healthMapZoomedCountry = healthMapZoomedCountry === loc ? null : loc;
-    window.Plotly.relayout(healthMapEl, getComparatorMapRelayoutGeoPatch(healthMapZoomedCountry));
-    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(healthMapEl));
-  });
-}
-
-function bindPolMapClick() {
-  if (!polMapEl || polMapClickBound || !window.Plotly) return;
-  if (typeof polMapEl.on !== "function") return;
-  polMapClickBound = true;
-  polMapEl.on("plotly_click", (ev) => {
-    if (!polMapRendered || !window.Plotly || !polMapEl) return;
-    const loc = comparatorMapClickLocation(ev.points?.[0]);
-    if (!loc) return;
-    polMapZoomedCountry = polMapZoomedCountry === loc ? null : loc;
-    window.Plotly.relayout(polMapEl, getComparatorMapRelayoutGeoPatch(polMapZoomedCountry));
-    window.requestAnimationFrame(() => window.Plotly?.Plots?.resize?.(polMapEl));
-  });
-}
 
 function renderEduMap() {
   if (eduMapRendered) return;
@@ -390,10 +277,9 @@ function renderEduMap() {
     },
   ];
 
-  const layout = choroplethLayoutForViewport(makeEduGeo(eduMapZoomedCountry));
+  const layout = choroplethLayoutForViewport(makeEduGeo());
 
   window.Plotly.newPlot(eduMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
-  bindEduMapClick();
   markPlotReady(eduMapEl);
   eduMapRendered = true;
 }
@@ -562,8 +448,6 @@ function removeEduDetailCard() {
   if (existing) existing.remove();
   eduMapRendered = false;
   eduMapEl = null;
-  eduMapZoomedCountry = null;
-  eduMapClickBound = false;
   eduToggle?.setAttribute("aria-expanded", "false");
   window.requestAnimationFrame(() => {
     eduToggle?.focus({ preventScroll: true });
@@ -599,9 +483,6 @@ const healthToggle = document.querySelector(".card-toggle[data-open-health='true
 const healthAnchor = document.getElementById("health-detail-anchor");
 let healthMapRendered = false;
 let healthMapEl = null;
-/** @type {string | null} */
-let healthMapZoomedCountry = null;
-let healthMapClickBound = false;
 
 function renderHealthMap() {
   if (healthMapRendered) return;
@@ -644,10 +525,9 @@ function renderHealthMap() {
     },
   ];
 
-  const layout = choroplethLayoutForViewport(makeHealthGeo(healthMapZoomedCountry));
+  const layout = choroplethLayoutForViewport(makeHealthGeo());
 
   window.Plotly.newPlot(healthMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
-  bindHealthMapClick();
   markPlotReady(healthMapEl);
   healthMapRendered = true;
 }
@@ -747,8 +627,6 @@ function removeHealthDetailCard() {
   if (existing) existing.remove();
   healthMapRendered = false;
   healthMapEl = null;
-  healthMapZoomedCountry = null;
-  healthMapClickBound = false;
   healthToggle?.setAttribute("aria-expanded", "false");
   window.requestAnimationFrame(() => {
     healthToggle?.focus({ preventScroll: true });
@@ -784,9 +662,6 @@ const polToggle = document.querySelector(".card-toggle[data-open-pol='true']");
 const polAnchor = document.getElementById("pol-detail-anchor");
 let polMapRendered = false;
 let polMapEl = null;
-/** @type {string | null} */
-let polMapZoomedCountry = null;
-let polMapClickBound = false;
 
 function renderPolMap() {
   if (polMapRendered) return;
@@ -830,10 +705,9 @@ function renderPolMap() {
     },
   ];
 
-  const layout = choroplethLayoutForViewport(makePolGeo(polMapZoomedCountry));
+  const layout = choroplethLayoutForViewport(makePolGeo());
 
   window.Plotly.newPlot(polMapEl, data, layout, COMPARATOR_CHOROPLETH_CONFIG);
-  bindPolMapClick();
   markPlotReady(polMapEl);
   polMapRendered = true;
 }
@@ -935,8 +809,6 @@ function removePolDetailCard() {
   if (existing) existing.remove();
   polMapRendered = false;
   polMapEl = null;
-  polMapZoomedCountry = null;
-  polMapClickBound = false;
   polLaborRendered = false;
   polLaborChartEl = null;
   polToggle?.setAttribute("aria-expanded", "false");

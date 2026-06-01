@@ -479,12 +479,12 @@ body.page-about::before {
   max-width: 600px;
   margin: 0 auto;
   padding: 30px;
-  background: #fff;
+  background: linear-gradient(180deg, #fffefd 0%, #fff5f9 100%);
   border-radius: 16px;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 10px 30px rgba(91, 42, 111, 0.1);
   text-align: center;
   font-family: "Inter", system-ui, sans-serif;
-  border: 1px solid #ede9f7;
+  border: 1px solid #f3bfd7;
 }
 
 .page-about .about-contact .feedback-card-heading {
@@ -496,75 +496,13 @@ body.page-about::before {
 
 .page-about .about-contact .feedback > p {
   color: #666;
-  margin: 0 0 20px;
+  margin: 0 0 1.35rem;
   font-size: 0.92rem;
   line-height: 1.55;
 }
 
-.page-about .about-contact .feedback form {
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-  text-align: left;
-}
-
-.page-about .about-contact .feedback label {
-  display: block;
-  margin-top: 4px;
-  font-size: 0.82rem;
-  font-weight: 600;
-  color: #444;
-}
-
-.page-about .about-contact .feedback textarea {
-  width: 100%;
-  box-sizing: border-box;
-  padding: 12px;
-  border-radius: 8px;
-  border: 1px solid #ddd;
-  resize: none;
-  font-family: inherit;
-  font-size: 0.88rem;
-  line-height: 1.45;
-}
-
-.page-about .about-contact .feedback textarea:focus-visible {
-  outline: 2px solid #6c4cf1;
-  outline-offset: 2px;
-  border-color: #b8a6f5;
-}
-
-.page-about .about-contact .feedback button[type="submit"] {
-  margin-top: 6px;
-  background: #6c4cf1;
-  color: #fff;
-  padding: 12px;
-  border: none;
-  border-radius: 8px;
-  cursor: var(--cursor-female-28), pointer;
-  font: inherit;
-  font-weight: 600;
-  transition: background 0.3s ease;
-}
-
-.page-about .about-contact .feedback button[type="submit"]:hover {
-  background: #5a3be0;
-}
-
-.page-about .about-contact .feedback button[type="submit"]:focus-visible {
-  outline: 2px solid #442054;
-  outline-offset: 3px;
-}
-
-.page-about .about-contact-form-status {
-  margin: 0;
-  font-size: 0.85rem;
-  color: #5b2a6f;
-  text-align: center;
-}
-
 .page-about .about-contact .social-links {
-  margin-top: 25px;
+  margin-top: 0;
   display: flex;
   flex-direction: column;
   gap: 10px;
@@ -580,16 +518,26 @@ body.page-about::before {
 }
 
 .page-about .about-contact .dm-btn {
-  background: #111;
-  color: #fff;
+  background: linear-gradient(135deg, #5b2a6f 0%, #a63a73 52%, #ff7f6a 100%);
+  color: #fffefd;
+  border: 2px solid #5b2a6f;
+  box-shadow: 0 6px 20px rgba(91, 42, 111, 0.22);
+  transition:
+    background 0.25s ease,
+    border-color 0.25s ease,
+    box-shadow 0.25s ease,
+    transform 0.2s ease;
 }
 
 .page-about .about-contact .dm-btn:hover {
-  background: #333;
+  background: linear-gradient(135deg, #6a3480 0%, #c04d85 50%, #ff967d 100%);
+  border-color: #74418b;
+  box-shadow: 0 8px 24px rgba(91, 42, 111, 0.28);
+  transform: translateY(-1px);
 }
 
 .page-about .about-contact .btn:focus-visible {
-  outline: 2px solid #6c4cf1;
+  outline: 2px solid #ffab8f;
   outline-offset: 3px;
 }
 
@@ -1395,17 +1343,18 @@ a.hero-help-link {
 
 /* TÜİK education infographic (inside Access to education detail card) */
 .edu-tuik {
-  --tuik-violet: #6c4cf1;
-  --tuik-violet-soft: #ece8fd;
-  --tuik-violet-mid: #a598f0;
+  /* Aligned with education choropleth (script.js colorscale) */
+  --tuik-violet: #a63a73;
+  --tuik-violet-soft: #fde7f1;
+  --tuik-violet-mid: #d77aa9;
   --tuik-text: #1e293b;
   --tuik-muted: #64748b;
   --tuik-surface: #ffffff;
-  --tuik-shadow: 0 4px 24px rgba(108, 76, 241, 0.08);
+  --tuik-shadow: 0 4px 24px rgba(166, 58, 115, 0.08);
   --tuik-radius: 14px;
   margin-top: 1.35rem;
   padding-top: 1.35rem;
-  border-top: 1px solid #e8e4fc;
+  border-top: 1px solid #f3bfd7;
   font-family: "Inter", system-ui, -apple-system, Segoe UI, Roboto, sans-serif;
 }
 
@@ -1433,7 +1382,7 @@ a.hero-help-link {
   background: var(--tuik-surface);
   border-radius: var(--tuik-radius);
   box-shadow: var(--tuik-shadow);
-  border: 1px solid rgba(108, 76, 241, 0.12);
+  border: 1px solid rgba(166, 58, 115, 0.12);
   padding: 1.25rem 1.35rem 1.35rem;
   margin-bottom: 1.25rem;
 }
@@ -1459,7 +1408,7 @@ a.hero-help-link {
   padding: 0.85rem 0.5rem;
   border-radius: 12px;
   background: linear-gradient(180deg, #faf9ff 0%, #fff 100%);
-  border: 1px solid rgba(108, 76, 241, 0.1);
+  border: 1px solid rgba(166, 58, 115, 0.1);
 }
 
 .edu-tuik-stat-value {
@@ -1483,7 +1432,7 @@ a.hero-help-link {
   background: var(--tuik-surface);
   border-radius: var(--tuik-radius);
   box-shadow: var(--tuik-shadow);
-  border: 1px solid rgba(108, 76, 241, 0.1);
+  border: 1px solid rgba(166, 58, 115, 0.1);
   padding: 1.2rem 1.25rem 1.3rem;
   margin-bottom: 1rem;
 }
@@ -1672,7 +1621,7 @@ a.hero-help-link {
   height: 32px;
   border-radius: 10px;
   background: #f8fafc;
-  border: 1px dashed rgba(108, 76, 241, 0.35);
+  border: 1px dashed rgba(166, 58, 115, 0.35);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -1827,11 +1776,11 @@ a.hero-help-link {
     from -90deg,
     var(--tuik-violet) 0deg,
     var(--tuik-violet) calc(3.6deg * var(--stem-p)),
-    #e8e4fc 0
+    #f3bfd7 0
   );
   display: grid;
   place-items: center;
-  box-shadow: 0 2px 12px rgba(108, 76, 241, 0.15);
+  box-shadow: 0 2px 12px rgba(166, 58, 115, 0.15);
 }
 
 .tuik-donut-hole {
@@ -1845,7 +1794,7 @@ a.hero-help-link {
   justify-content: center;
   text-align: center;
   padding: 0.35rem;
-  box-shadow: inset 0 0 0 1px rgba(108, 76, 241, 0.08);
+  box-shadow: inset 0 0 0 1px rgba(166, 58, 115, 0.08);
 }
 
 .tuik-donut-pct {
@@ -1893,8 +1842,8 @@ a.hero-help-link {
 }
 
 .tuik-dot--other {
-  background: #e8e4fc;
-  box-shadow: inset 0 0 0 1px rgba(108, 76, 241, 0.2);
+  background: #f3bfd7;
+  box-shadow: inset 0 0 0 1px rgba(166, 58, 115, 0.2);
 }
 
 .tuik-rep {
@@ -1926,12 +1875,12 @@ a.hero-help-link {
 .tuik-rep-fill {
   height: 100%;
   border-radius: 999px;
-  background: linear-gradient(90deg, var(--tuik-violet), #8b6cf7);
+  background: linear-gradient(90deg, var(--tuik-violet), #d77aa9);
   min-width: 3px;
 }
 
 .tuik-rep-fill--low {
-  background: linear-gradient(90deg, #c4b5fd, var(--tuik-violet));
+  background: linear-gradient(90deg, #f3bfd7, var(--tuik-violet));
 }
 
 .tuik-rep-val {
@@ -1983,11 +1932,11 @@ a.hero-help-link {
 }
 
 .tuik-poverty-fill--mid {
-  background: #8b6cf7;
+  background: #d77aa9;
 }
 
 .tuik-poverty-fill--low {
-  background: #c4b5fd;
+  background: #f3bfd7;
 }
 
 .tuik-poverty-val {
@@ -2001,10 +1950,10 @@ a.hero-help-link {
 .edu-tuik-insight {
   margin: 0.25rem 0 0.85rem;
   padding: 1rem 1.15rem;
-  background: linear-gradient(135deg, #faf9ff 0%, #fff 55%);
-  border: 1px solid rgba(108, 76, 241, 0.18);
+  background: linear-gradient(135deg, #fff5f9 0%, #fff 55%);
+  border: 1px solid rgba(166, 58, 115, 0.18);
   border-radius: var(--tuik-radius);
-  box-shadow: 0 2px 14px rgba(108, 76, 241, 0.06);
+  box-shadow: 0 2px 14px rgba(166, 58, 115, 0.06);
 }
 
 .edu-tuik-insight p {
@@ -2029,18 +1978,18 @@ a.hero-help-link {
 }
 
 .edu-tuik-source a {
-  color: #6c4cf1;
+  color: #a63a73;
   text-decoration: underline;
   text-decoration-thickness: 1px;
   text-underline-offset: 2px;
 }
 
 .edu-tuik-source a:hover {
-  color: #5538d9;
+  color: #6a0f3c;
 }
 
 .edu-tuik-source a:focus-visible {
-  outline: 2px solid #6c4cf1;
+  outline: 2px solid #a63a73;
   outline-offset: 2px;
   border-radius: 2px;
 }

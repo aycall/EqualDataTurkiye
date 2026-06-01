@@ -10,20 +10,6 @@ menuLinks.forEach((link) => {
   }
 });
 
-const aboutContactForm = document.getElementById("about-contact-form");
-const aboutContactFormStatus = document.getElementById(
-  "about-contact-form-status"
-);
-
-aboutContactForm?.addEventListener("submit", (e) => {
-  e.preventDefault();
-  if (aboutContactFormStatus) {
-    aboutContactFormStatus.hidden = false;
-    aboutContactFormStatus.textContent =
-      "Thank you. This site does not store submissions. For a direct reply, use Instagram DM above.";
-  }
-});
-
 (function initAboutContactToggle() {
   const section = document.getElementById("contact-us");
   const toggle = document.getElementById("contact-us-heading");
